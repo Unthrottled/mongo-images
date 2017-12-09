@@ -4,4 +4,4 @@ acari:
     landingDatabase: images
 
 server:
-  port: 8080
+  port: 80
