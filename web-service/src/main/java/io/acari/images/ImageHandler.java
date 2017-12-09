@@ -42,28 +42,6 @@ public class ImageHandler {
     }
   }
 
-  public Flux<DataBuffer> fetchImage(String imageId) {
-    GridFSDownloadStream gridFSDownloadStream = gridFSBucket.openDownloadStream(new ObjectId(imageId));
-    return Flux.generate(synchronousSink -> {
-      DefaultDataBufferFactory defaultDataBufferFactory = new DefaultDataBufferFactory();
-      ByteBuffer byteBuffer = ByteBuffer.allocate(4096);
-      Mono.from(gridFSDownloadStream.read(byteBuffer))
-          .subscribe(read -> {
-            if (read < 0) {
-              synchronousSink.complete();
-              gridFSDownloadStream.close();
-            } else {
-              synchronousSink.next(defaultDataBufferFactory.wrap(byteBuffer));
-            }
-          }, throwable -> {
-            LOGGER.warn("Ohhhshit", throwable);
-            synchronousSink.complete();
-          }, () -> {
-            LOGGER.info("hmm");
-          });
-    });
-  }
-
   public Mono<byte[]> fetchImageBinary(String imageId) {
     ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
     return Mono.from(gridFSBucket.downloadToStream(new ObjectId(imageId),
