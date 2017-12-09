@@ -1,0 +1,18 @@
+version: "3"
+services:
+  node-install:
+    build:
+      dockerfile: Dockerfile-install
+      context: ./web-content
+    image: alexsimons/nodeinstall
+    volumes:
+      - ./web-content:/app
+      volumes:
+            - ./:/app
+    entrypoint:
+      - /bin/bash
+    command:
+      - -c
+      - "cd web-content; npm run build"
+
+#runs the node install

@@ -1,0 +1,7 @@
+version: "3"
+services:
+  web-service:
+    build: ./web-service
+    ports:
+      - 80:8080
+    image: alexsimons/web-service:1.0.0
