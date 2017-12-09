@@ -19,22 +19,10 @@ public class LandingRestController {
   private static final Logger LOGGER = LoggerFactory.getLogger(LandingRestController.class);
 
   private final ImageHandler imageHandler;
-  private final AllProjectHandler allProjectHandler;
-  private final ProjectCreationHandler projectCreationHandler;
-  private final ProjectUpdateHandler projectUpdateHandler;
-  private final ProjectRemovalHandler projectRemovalHandler;
 
   @Autowired
-  public LandingRestController(ImageHandler imageHandler,
-                               AllProjectHandler allProjectHandler,
-                               ProjectCreationHandler projectCreationHandler,
-                               ProjectUpdateHandler projectUpdateHandler,
-                               ProjectRemovalHandler projectRemovalHandler) {
+  public LandingRestController(ImageHandler imageHandler) {
     this.imageHandler = imageHandler;
-    this.allProjectHandler = allProjectHandler;
-    this.projectCreationHandler = projectCreationHandler;
-    this.projectUpdateHandler = projectUpdateHandler;
-    this.projectRemovalHandler = projectRemovalHandler;
   }
 
 
@@ -62,24 +50,8 @@ public class LandingRestController {
     return imageHandler.fetchImageBinary(id);
   }
 
-
-  @PostMapping(value = "project/create", consumes = MediaType.APPLICATION_JSON_VALUE)
-  public Mono<ResponseProject> saveProject(@RequestBody BaseProject newProject) {
-    return projectCreationHandler.create(Mono.just(newProject));
-  }
-
-  @DeleteMapping(value = "project/delete/{id}", produces = MediaType.TEXT_PLAIN_VALUE)
-  public Mono<String> deleteProject(@PathVariable("id") String projectId) {
-    return projectRemovalHandler.removeProject(Mono.just(projectId));
-  }
-
-  @PostMapping(value = "project/update", consumes = MediaType.APPLICATION_JSON_VALUE)
-  public Mono<ResponseProject> updateProject(@RequestBody ResponseProject newProject) {
-    return projectUpdateHandler.updateProject(Mono.just(newProject));
-  }
-
-  @GetMapping(value = "projects", produces = MediaType.APPLICATION_JSON_VALUE)
-  public Flux<ResponseProject> allProjects() {
-    return allProjectHandler.findAll();
+  @GetMapping(value = "images", produces = MediaType.APPLICATION_JSON_VALUE)
+  public Flux<String> allProjects() {
+    return imageHandler.findAllNames();
   }
 }
