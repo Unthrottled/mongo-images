@@ -16,17 +16,23 @@ WORKDIR /app
 #Add rest of source code :)
 ADD . .
 
-#RUN gradle clean shadowJar
+RUN gradle clean bootJar
 
 FROM java:8u111-alpine
 
 WORKDIR /app
 
-#COPY --from=packager /app/build/libs /app
+COPY --from=packager /app/build/libs /app
 
-#ENTRYPOINT ["java", "-jar", "wiki-1.0.3.jar"]
+COPY ./mongodb-cert.crt $JAVA_HOME/jre/lib/security
 
-ENTRYPOINT ["java", "-"]
+#NEED TO TRUST THE CERT OTHERWISE IT THROWS A UNKNOWN CERT EXCEPTION
+#AND FOR SOME REASON IT CAN'T USE A TRUST STORE, SO THAT IS WHY THIS IS
+#HERE
+RUN \
+    cd $JAVA_HOME/jre/lib/security \
+    && keytool -keystore cacerts -storepass changeit -noprompt -trustcacerts -importcert -alias mongoCert -file mongodb-cert.crt
 
+ENTRYPOINT ["java", "-Xdebug","-Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=7896","-jar", "app-1.0.0.jar"]
 
 

@@ -1,0 +1,4 @@
+db-configs.properties
+*keystore*
+auth-configs.properties
+application.yml
