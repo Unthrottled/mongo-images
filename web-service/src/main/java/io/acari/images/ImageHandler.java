@@ -1,5 +1,6 @@
 package io.acari.images;
 
+import com.mongodb.client.gridfs.model.GridFSFile;
 import com.mongodb.reactivestreams.client.gridfs.GridFSBucket;
 import com.mongodb.reactivestreams.client.gridfs.GridFSDownloadStream;
 import com.mongodb.reactivestreams.client.gridfs.helpers.AsyncStreamHelper;
@@ -76,6 +77,8 @@ public class ImageHandler {
   }
 
   public Flux<String> findAllNames() {
-    return Flux.fromArray(new String[]{"ayy","lmao"});
+    return Flux.from(gridFSBucket.find())
+        .map(GridFSFile::getMD5);
+
   }
 }
