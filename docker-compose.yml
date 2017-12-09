@@ -5,3 +5,7 @@ services:
     ports:
       - 80:8080
     image: alexsimons/web-service:1.0.0
+  mongo:
+    image: mongo:latest
+    volumes:
+      - "./dataDump/:/data/db"
