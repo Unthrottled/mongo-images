@@ -38,7 +38,7 @@ public class ImageHandler {
           .map(ObjectId::toHexString);
     } catch (IOException e) {
       LOGGER.warn("Error saving image", e);
-      return Mono.error(e);
+      return Mono.error(new Throwable("Unable to save image!"));
     }
   }
 
