@@ -1,9 +1,8 @@
-package io.acari.landing.project;
+package io.acari.images;
 
 import com.mongodb.reactivestreams.client.gridfs.GridFSBucket;
 import com.mongodb.reactivestreams.client.gridfs.GridFSDownloadStream;
 import com.mongodb.reactivestreams.client.gridfs.helpers.AsyncStreamHelper;
-import io.acari.landing.model.ResponseProject;
 import org.bson.types.ObjectId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

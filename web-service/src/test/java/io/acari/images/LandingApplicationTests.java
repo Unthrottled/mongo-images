@@ -1,4 +1,4 @@
-package io.acari.landing;
+package io.acari.images;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

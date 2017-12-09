@@ -1,7 +1,6 @@
-package io.acari.landing;
+package io.acari.images;
 
 
-import io.acari.landing.project.ImageHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

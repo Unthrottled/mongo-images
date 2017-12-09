@@ -1,4 +1,4 @@
-package io.acari.landing;
+package io.acari.images;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
