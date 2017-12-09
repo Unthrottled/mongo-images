@@ -1,8 +1,6 @@
 package io.acari.landing;
 
 
-import io.acari.landing.auth.ApplicationUser;
-import io.acari.landing.auth.TokenHandler;
 import io.acari.landing.model.BaseProject;
 import io.acari.landing.model.ResponseProject;
 import io.acari.landing.project.*;
@@ -25,32 +23,24 @@ public class LandingRestController {
   private final ProjectCreationHandler projectCreationHandler;
   private final ProjectUpdateHandler projectUpdateHandler;
   private final ProjectRemovalHandler projectRemovalHandler;
-  private final TokenHandler tokenHandler;
 
   @Autowired
   public LandingRestController(ImageHandler imageHandler,
                                AllProjectHandler allProjectHandler,
                                ProjectCreationHandler projectCreationHandler,
                                ProjectUpdateHandler projectUpdateHandler,
-                               ProjectRemovalHandler projectRemovalHandler,
-                               TokenHandler tokenHandler) {
+                               ProjectRemovalHandler projectRemovalHandler) {
     this.imageHandler = imageHandler;
     this.allProjectHandler = allProjectHandler;
     this.projectCreationHandler = projectCreationHandler;
     this.projectUpdateHandler = projectUpdateHandler;
     this.projectRemovalHandler = projectRemovalHandler;
-    this.tokenHandler = tokenHandler;
   }
 
 
   @GetMapping("")
   public Mono<String> fetchBase() {
     return Mono.just("Hello Werld!\n");
-  }
-
-  @PostMapping(value = "token", produces = {MediaType.TEXT_PLAIN_VALUE, MediaType.APPLICATION_JSON_VALUE})
-  public Mono<String> fetchToken(@RequestBody ApplicationUser maybeAlex){
-    return this.tokenHandler.handleUser(maybeAlex);
   }
 
   @PostMapping(value = "image/save", consumes = {
