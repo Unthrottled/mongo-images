@@ -43,14 +43,6 @@ public class MongoConfig extends AbstractReactiveMongoConfiguration {
             .streamFactoryFactory(NettyStreamFactoryFactory.builder()
                     .eventLoopGroup(eventLoopGroup)
                     .build())
-            .sslSettings(SslSettings.builder()
-                    .applyConnectionString(connectionString)
-                    .build())
-        .credentialList(Lists.newArrayList(
-            MongoCredential.createCredential(
-                environment.getProperty("acari.mongo.username",
-                    "admin"), "admin",
-                environment.getProperty("acari.mongo.pass", "123abc").toCharArray())))
             .clusterSettings(ClusterSettings.builder()
                     .applyConnectionString(connectionString)
                     .build())
@@ -59,12 +51,12 @@ public class MongoConfig extends AbstractReactiveMongoConfiguration {
 
   @Override
   protected String getDatabaseName() {
-    return "landing";
+    return environment.getProperty("acari.mongo.landingDatabase", "images");
   }
 
   @Bean
   public GridFSBucket gridFsTemplate(MongoClient reactiveMongoClient) throws Exception {
-    return GridFSBuckets.create(reactiveMongoClient.getDatabase(environment.getProperty("acari.mongo.landingDatabase", "landing")));
+    return GridFSBuckets.create(reactiveMongoClient.getDatabase(getDatabaseName()));
   }
 
   @PreDestroy
