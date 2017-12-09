@@ -34,7 +34,7 @@ public class LandingRestController {
   }
 
   @PostMapping(value = "image/save", consumes = {
-      MediaType.MULTIPART_FOuRM_DATA_VALUE,
+      MediaType.MULTIPART_FORM_DATA_VALUE,
       MediaType.IMAGE_PNG_VALUE,
       MediaType.IMAGE_JPEG_VALUE,
       MediaType.IMAGE_GIF_VALUE,
