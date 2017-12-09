@@ -28,8 +28,13 @@ public class LandingRestController {
     return Mono.just("Hello Werld!\n");
   }
 
+  @DeleteMapping(value = "image/delete/{id}", produces = MediaType.TEXT_PLAIN_VALUE)
+  public Mono<Boolean> deleteImage(@PathVariable("id") String id) {
+    return imageHandler.removeImage(id);
+  }
+
   @PostMapping(value = "image/save", consumes = {
-      MediaType.MULTIPART_FORM_DATA_VALUE,
+      MediaType.MULTIPART_FOuRM_DATA_VALUE,
       MediaType.IMAGE_PNG_VALUE,
       MediaType.IMAGE_JPEG_VALUE,
       MediaType.IMAGE_GIF_VALUE,
