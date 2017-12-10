@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {Observable} from "rxjs/Observable";
 import {ProjectFile} from "./ProjectFile.model";
 
@@ -7,6 +7,9 @@ import {ProjectFile} from "./ProjectFile.model";
     template: require('./ProjectFileView.component.htm')
 })
 export class ProjectFileViewComponent {
+
+    @Output()
+    private projectFileChanged = new EventEmitter<ProjectFile>();
 
     constructor() {
     }
@@ -20,6 +23,7 @@ export class ProjectFileViewComponent {
 
     set projectFile(value: ProjectFile) {
         this._projectFile = value;
+        this.projectFileChanged.emit(this.projectFile)
     }
 
     get imageBinary(): Observable<any> {

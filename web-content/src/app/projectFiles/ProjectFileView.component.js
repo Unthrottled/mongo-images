@@ -12,6 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var ProjectFileViewComponent = /** @class */ (function () {
     function ProjectFileViewComponent() {
+        this.projectFileChanged = new core_1.EventEmitter();
     }
     Object.defineProperty(ProjectFileViewComponent.prototype, "projectFile", {
         get: function () {
@@ -19,6 +20,7 @@ var ProjectFileViewComponent = /** @class */ (function () {
         },
         set: function (value) {
             this._projectFile = value;
+            this.projectFileChanged.emit(this.projectFile);
         },
         enumerable: true,
         configurable: true
@@ -37,6 +39,10 @@ var ProjectFileViewComponent = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
+    __decorate([
+        core_1.Output(),
+        __metadata("design:type", Object)
+    ], ProjectFileViewComponent.prototype, "projectFileChanged", void 0);
     __decorate([
         core_1.Input(),
         __metadata("design:type", Object),

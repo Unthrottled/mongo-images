@@ -2,6 +2,8 @@
 
 import {Component, EventEmitter, Input, Output} from "@angular/core";
 import {ProjectFile} from "./ProjectFile.model";
+import {LocalProjectFile} from "./LocalProjectFile";
+import {Observable} from "rxjs/Observable";
 
 @Component(
     {
@@ -13,7 +15,7 @@ export class ProjectFileManipulationComponent {
     private _projectFile: ProjectFile;
 
     @Output()
-    private onFileChoose = new EventEmitter<File>();
+    private projectFileChanged = new EventEmitter<ProjectFile>();
 
 
     @Input()
@@ -26,6 +28,7 @@ export class ProjectFileManipulationComponent {
     }
 
     fileChosen(file: File): void{
-        this.onFileChoose.emit(file);
+        this._projectFile = new LocalProjectFile(Observable.of(file));
+        this.projectFileChanged.emit(this._projectFile);
     }
 }

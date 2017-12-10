@@ -1,5 +1,7 @@
 <div *ngIf="editMode">
-    <project-file-manipulation [projectFile]="projectFile"></project-file-manipulation>
+    <project-file-manipulation [[projectFile)]="projectFile">
+
+    </project-file-manipulation>
 </div>
 <div class="image-container"
      *ngIf="imageBinary | async">
