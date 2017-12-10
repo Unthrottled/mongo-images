@@ -7,16 +7,16 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var RemoteProjectFile_service_1 = require("./RemoteProjectFile.service");
-var ProjectFileChoose_component_1 = require("./ProjectFileChoose.component");
-var ProjectFileList_component_1 = require("./ProjectFileList.component");
-var ProjectFileView_component_1 = require("./ProjectFileView.component");
+var RemoteProjectFile_service_1 = require("./service/RemoteProjectFile.service");
+var ProjectFileChoose_component_1 = require("./choose/ProjectFileChoose.component");
+var ProjectFileList_component_1 = require("./list/ProjectFileList.component");
+var ProjectFileView_component_1 = require("./view/ProjectFileView.component");
 var ProjectFile_component_1 = require("./ProjectFile.component");
 var animations_1 = require("@angular/platform-browser/animations");
 var http_1 = require("@angular/common/http");
 var forms_1 = require("@angular/forms");
 var platform_browser_1 = require("@angular/platform-browser");
-var ProjectFileManipulation_component_1 = require("./ProjectFileManipulation.component");
+var ProjectFileManipulation_component_1 = require("./manipulation/ProjectFileManipulation.component");
 var ProjectFileModule = /** @class */ (function () {
     function ProjectFileModule() {
     }

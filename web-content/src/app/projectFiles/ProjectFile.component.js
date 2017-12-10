@@ -7,7 +7,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var LocalProjectFile_1 = require("./LocalProjectFile");
+var LocalProjectFile_1 = require("./model/LocalProjectFile");
 var ProjectFileComponent = /** @class */ (function () {
     function ProjectFileComponent() {
         this._projectFiles = [];
