@@ -3,7 +3,7 @@ import {Component} from "@angular/core";
 
 @Component({
     selector: 'project-file-component',
-    require: ''
+    template: require('./ProjectFile.component.htm')
 })
 export class ProjectFileComponent {
 
