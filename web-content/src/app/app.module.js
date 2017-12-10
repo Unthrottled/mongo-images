@@ -12,7 +12,10 @@ var forms_1 = require("@angular/forms");
 var router_1 = require("@angular/router");
 var animations_1 = require("@angular/platform-browser/animations");
 var app_component_1 = require("./app.component");
-var http_1 = require("@angular/http");
+var http_1 = require("@angular/common/http");
+var ProjectFile_module_1 = require("./projectFiles/ProjectFile.module");
+var window_1 = require("./window");
+var BackendAPI_service_1 = require("./BackendAPI.service");
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
@@ -21,8 +24,9 @@ var AppModule = /** @class */ (function () {
             imports: [
                 platform_browser_1.BrowserModule,
                 forms_1.FormsModule,
-                http_1.HttpModule,
-                animations_1.BrowserAnimationsModule
+                http_1.HttpClientModule,
+                animations_1.BrowserAnimationsModule,
+                ProjectFile_module_1.ProjectFileModule
             ],
             exports: [
                 router_1.RouterModule
@@ -31,7 +35,7 @@ var AppModule = /** @class */ (function () {
                 app_component_1.AppComponent
             ],
             bootstrap: [app_component_1.AppComponent],
-            providers: []
+            providers: [window_1.WindowRef, BackendAPI_service_1.BackendAPIService]
         })
     ], AppModule);
     return AppModule;

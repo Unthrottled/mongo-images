@@ -5,7 +5,7 @@ import {RouterModule} from "@angular/router";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 import {AppComponent} from "./app.component";
-import {HttpModule} from "@angular/http";
+import {HttpClientModule} from "@angular/common/http";
 import {ProjectFileModule} from "./projectFiles/ProjectFile.module";
 import {WindowRef} from "./window";
 import {BackendAPIService} from "./BackendAPI.service";
@@ -16,7 +16,7 @@ import {BackendAPIService} from "./BackendAPI.service";
     imports: [
         BrowserModule,
         FormsModule,
-        HttpModule,
+        HttpClientModule,
         BrowserAnimationsModule,
         ProjectFileModule
     ],
