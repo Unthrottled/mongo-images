@@ -6,6 +6,7 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 import {AppComponent} from "./app.component";
 import {HttpModule} from "@angular/http";
+import {ProjectFileModule} from "./projectFiles/ProjectFile.module";
 
 
 
@@ -14,7 +15,8 @@ import {HttpModule} from "@angular/http";
         BrowserModule,
         FormsModule,
         HttpModule,
-        BrowserAnimationsModule
+        BrowserAnimationsModule,
+        ProjectFileModule
     ],
     exports: [
         RouterModule
