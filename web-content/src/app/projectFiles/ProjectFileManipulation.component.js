@@ -12,6 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var ProjectFileManipulationComponent = /** @class */ (function () {
     function ProjectFileManipulationComponent() {
+        this.onFileChoose = new core_1.EventEmitter();
     }
     Object.defineProperty(ProjectFileManipulationComponent.prototype, "projectFile", {
         get: function () {
@@ -24,7 +25,12 @@ var ProjectFileManipulationComponent = /** @class */ (function () {
         configurable: true
     });
     ProjectFileManipulationComponent.prototype.fileChosen = function (file) {
+        this.onFileChoose.emit(file);
     };
+    __decorate([
+        core_1.Output(),
+        __metadata("design:type", Object)
+    ], ProjectFileManipulationComponent.prototype, "onFileChoose", void 0);
     __decorate([
         core_1.Input(),
         __metadata("design:type", Object),

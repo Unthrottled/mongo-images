@@ -1,6 +1,6 @@
 
 
-import {Component, Input} from "@angular/core";
+import {Component, EventEmitter, Input, Output} from "@angular/core";
 import {ProjectFile} from "./ProjectFile.model";
 
 @Component(
@@ -11,6 +11,9 @@ import {ProjectFile} from "./ProjectFile.model";
 )
 export class ProjectFileManipulationComponent {
     private _projectFile: ProjectFile;
+
+    @Output()
+    private onFileChoose = new EventEmitter<File>();
 
 
     @Input()
@@ -23,6 +26,6 @@ export class ProjectFileManipulationComponent {
     }
 
     fileChosen(file: File): void{
-
+        this.onFileChoose.emit(file);
     }
 }
