@@ -10,6 +10,7 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {HttpClientModule} from "@angular/common/http";
 import {FormsModule} from "@angular/forms";
 import {BrowserModule} from "@angular/platform-browser";
+import {ProjectFileManipulationComponent} from "./ProjectFileManipulation.component";
 
 @NgModule({
         imports: [
@@ -22,14 +23,16 @@ import {BrowserModule} from "@angular/platform-browser";
             ProjectFileChooseComponent,
             ProjectFileListComponent,
             ProjectFileViewComponent,
-            ProjectFileComponent
+            ProjectFileComponent,
+            ProjectFileManipulationComponent
 
         ],
         declarations:[
             ProjectFileChooseComponent,
             ProjectFileListComponent,
             ProjectFileViewComponent,
-            ProjectFileComponent
+            ProjectFileComponent,
+            ProjectFileManipulationComponent
         ],
         bootstrap: [],
         providers: [RemoteProjectFileService],

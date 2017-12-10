@@ -16,6 +16,7 @@ var animations_1 = require("@angular/platform-browser/animations");
 var http_1 = require("@angular/common/http");
 var forms_1 = require("@angular/forms");
 var platform_browser_1 = require("@angular/platform-browser");
+var ProjectFileManipulation_component_1 = require("./ProjectFileManipulation.component");
 var ProjectFileModule = /** @class */ (function () {
     function ProjectFileModule() {
     }
@@ -31,13 +32,15 @@ var ProjectFileModule = /** @class */ (function () {
                 ProjectFileChoose_component_1.ProjectFileChooseComponent,
                 ProjectFileList_component_1.ProjectFileListComponent,
                 ProjectFileView_component_1.ProjectFileViewComponent,
-                ProjectFile_component_1.ProjectFileComponent
+                ProjectFile_component_1.ProjectFileComponent,
+                ProjectFileManipulation_component_1.ProjectFileManipulationComponent
             ],
             declarations: [
                 ProjectFileChoose_component_1.ProjectFileChooseComponent,
                 ProjectFileList_component_1.ProjectFileListComponent,
                 ProjectFileView_component_1.ProjectFileViewComponent,
-                ProjectFile_component_1.ProjectFileComponent
+                ProjectFile_component_1.ProjectFileComponent,
+                ProjectFileManipulation_component_1.ProjectFileManipulationComponent
             ],
             bootstrap: [],
             providers: [RemoteProjectFile_service_1.RemoteProjectFileService],

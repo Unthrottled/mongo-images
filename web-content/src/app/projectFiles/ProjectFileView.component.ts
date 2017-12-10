@@ -26,4 +26,8 @@ export class ProjectFileViewComponent {
         return this._projectFile.imageBinary();
     }
 
+    get editMode(): boolean {
+        return true;
+    }
+
 }

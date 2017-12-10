@@ -10,10 +10,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var ProjectFileViewComponent = /** @class */ (function () {
-    function ProjectFileViewComponent() {
+var ProjectFileManipulationComponent = /** @class */ (function () {
+    function ProjectFileManipulationComponent() {
     }
-    Object.defineProperty(ProjectFileViewComponent.prototype, "projectFile", {
+    Object.defineProperty(ProjectFileManipulationComponent.prototype, "projectFile", {
         get: function () {
             return this._projectFile;
         },
@@ -23,33 +23,20 @@ var ProjectFileViewComponent = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(ProjectFileViewComponent.prototype, "imageBinary", {
-        get: function () {
-            return this._projectFile.imageBinary();
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(ProjectFileViewComponent.prototype, "editMode", {
-        get: function () {
-            return true;
-        },
-        enumerable: true,
-        configurable: true
-    });
+    ProjectFileManipulationComponent.prototype.fileChosen = function (file) {
+    };
     __decorate([
         core_1.Input(),
         __metadata("design:type", Object),
         __metadata("design:paramtypes", [Object])
-    ], ProjectFileViewComponent.prototype, "projectFile", null);
-    ProjectFileViewComponent = __decorate([
+    ], ProjectFileManipulationComponent.prototype, "projectFile", null);
+    ProjectFileManipulationComponent = __decorate([
         core_1.Component({
-            selector: 'project-file-view',
-            template: require('./ProjectFileView.component.htm')
-        }),
-        __metadata("design:paramtypes", [])
-    ], ProjectFileViewComponent);
-    return ProjectFileViewComponent;
+            selector: 'project-file-manipulation',
+            template: require('./ProjectFileManipulation.component.htm')
+        })
+    ], ProjectFileManipulationComponent);
+    return ProjectFileManipulationComponent;
 }());
-exports.ProjectFileViewComponent = ProjectFileViewComponent;
-//# sourceMappingURL=ProjectFileView.component.js.map
+exports.ProjectFileManipulationComponent = ProjectFileManipulationComponent;
+//# sourceMappingURL=ProjectFileManipulation.component.js.map

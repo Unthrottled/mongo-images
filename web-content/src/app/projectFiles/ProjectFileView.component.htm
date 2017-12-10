@@ -1,3 +1,6 @@
+<div *ngIf="editMode">
+    <project-file-manipulation [projectFile]="projectFile"></project-file-manipulation>
+</div>
 <div class="image-container"
      *ngIf="imageBinary | async">
     <img [src]="imageBinary | async" alt="SOME IMAGE"/>
