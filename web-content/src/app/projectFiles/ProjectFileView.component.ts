@@ -6,7 +6,7 @@ import {ProjectFile} from "./ProjectFile.model";
     selector: 'project-file-view',
     template: require('./ProjectFileView.component.htm')
 })
-export class FileViewComponent {
+export class ProjectFileViewComponent {
 
     constructor() {
     }
