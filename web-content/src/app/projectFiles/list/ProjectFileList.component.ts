@@ -1,7 +1,7 @@
 
 
 import {Component, Input} from "@angular/core";
-import {ProjectFile} from "./ProjectFile.model";
+import {ProjectFile} from "../model/ProjectFile.model";
 
 @Component({
     selector: 'project-file-list',

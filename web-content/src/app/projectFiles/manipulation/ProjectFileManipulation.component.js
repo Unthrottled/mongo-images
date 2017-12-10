@@ -10,7 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var LocalProjectFile_1 = require("./LocalProjectFile");
+var LocalProjectFile_1 = require("../model/LocalProjectFile");
 var Observable_1 = require("rxjs/Observable");
 var ProjectFileManipulationComponent = /** @class */ (function () {
     function ProjectFileManipulationComponent() {

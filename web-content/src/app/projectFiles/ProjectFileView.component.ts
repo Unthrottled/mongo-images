@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {Observable} from "rxjs/Observable";
-import {ProjectFile} from "./ProjectFile.model";
+import {ProjectFile} from "./model/ProjectFile.model";
 
 @Component({
     selector: 'project-file-view',
