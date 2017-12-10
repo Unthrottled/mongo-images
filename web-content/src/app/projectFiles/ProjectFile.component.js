@@ -7,10 +7,23 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
+var LocalProjectFile_1 = require("./LocalProjectFile");
 var ProjectFileComponent = /** @class */ (function () {
     function ProjectFileComponent() {
+        this._projectFiles = [];
     }
+    Object.defineProperty(ProjectFileComponent.prototype, "projectFiles", {
+        get: function () {
+            return this._projectFiles;
+        },
+        set: function (value) {
+            this._projectFiles = value;
+        },
+        enumerable: true,
+        configurable: true
+    });
     ProjectFileComponent.prototype.addFile = function () {
+        this.projectFiles.push(new LocalProjectFile_1.LocalProjectFile());
     };
     ProjectFileComponent = __decorate([
         core_1.Component({
