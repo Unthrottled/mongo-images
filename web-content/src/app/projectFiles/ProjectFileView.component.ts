@@ -11,19 +11,19 @@ export class FileViewComponent {
     constructor() {
     }
 
-    private _project: ProjectFile;
+    private _projectFile: ProjectFile;
 
     @Input()
-    get project(): ProjectFile {
-        return this._project;
+    get projectFile(): ProjectFile {
+        return this._projectFile;
     }
 
-    set project(value: ProjectFile) {
-        this._project = value;
+    set projectFile(value: ProjectFile) {
+        this._projectFile = value;
     }
 
     get imageBinary(): Observable<any> {
-        return this._project.imageBinary();
+        return this._projectFile.imageBinary();
     }
 
 }
