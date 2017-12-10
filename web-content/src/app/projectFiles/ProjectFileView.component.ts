@@ -22,7 +22,7 @@ export class FileViewComponent {
         this._project = value;
     }
 
-    get reachBinary(): Observable<any> {
+    get imageBinary(): Observable<any> {
         return this._project.imageBinary();
     }
 
