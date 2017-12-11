@@ -14,7 +14,7 @@ var LocalProjectFile_1 = require("../model/LocalProjectFile");
 var Observable_1 = require("rxjs/Observable");
 var ProjectFileManipulationComponent = /** @class */ (function () {
     function ProjectFileManipulationComponent() {
-        this.projectFileChanged = new core_1.EventEmitter();
+        this.projectFileUpdated = new core_1.EventEmitter();
     }
     Object.defineProperty(ProjectFileManipulationComponent.prototype, "projectFile", {
         get: function () {
@@ -28,12 +28,12 @@ var ProjectFileManipulationComponent = /** @class */ (function () {
     });
     ProjectFileManipulationComponent.prototype.fileChosen = function (file) {
         this._projectFile = new LocalProjectFile_1.LocalProjectFile(Observable_1.Observable.of(file));
-        this.projectFileChanged.emit(this._projectFile);
+        this.projectFileUpdated.emit(this._projectFile);
     };
     __decorate([
         core_1.Output(),
         __metadata("design:type", Object)
-    ], ProjectFileManipulationComponent.prototype, "projectFileChanged", void 0);
+    ], ProjectFileManipulationComponent.prototype, "projectFileUpdated", void 0);
     __decorate([
         core_1.Input(),
         __metadata("design:type", Object),

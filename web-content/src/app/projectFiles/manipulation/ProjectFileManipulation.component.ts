@@ -15,7 +15,7 @@ export class ProjectFileManipulationComponent {
     private _projectFile: ProjectFile;
 
     @Output()
-    private projectFileChanged = new EventEmitter<ProjectFile>();
+    private projectFileUpdated = new EventEmitter<ProjectFile>();
 
 
     @Input()
@@ -29,6 +29,6 @@ export class ProjectFileManipulationComponent {
 
     fileChosen(file: File): void{
         this._projectFile = new LocalProjectFile(Observable.of(file));
-        this.projectFileChanged.emit(this._projectFile);
+        this.projectFileUpdated.emit(this._projectFile);
     }
 }

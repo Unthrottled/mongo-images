@@ -1,5 +1,5 @@
 <div *ngIf="editMode">
-    <project-file-manipulation [(projectFile)]="projectFile">
+    <project-file-manipulation [projectFile]="projectFile" (projectFileUpdated)="updateFile($event)">
 
     </project-file-manipulation>
 </div>

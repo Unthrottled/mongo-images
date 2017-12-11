@@ -8,9 +8,6 @@ import {ProjectFile} from "../model/ProjectFile.model";
 })
 export class ProjectFileViewComponent {
 
-    @Output()
-    private projectFileChanged = new EventEmitter<ProjectFile>();
-
     constructor() {
     }
 
@@ -23,7 +20,6 @@ export class ProjectFileViewComponent {
 
     set projectFile(value: ProjectFile) {
         this._projectFile = value;
-        this.projectFileChanged.emit(this.projectFile)
     }
 
     get imageBinary(): Observable<any> {
@@ -32,6 +28,10 @@ export class ProjectFileViewComponent {
 
     get editMode(): boolean {
         return true;
+    }
+
+    updateFile(projectFile: ProjectFile): void {
+        this.projectFile = projectFile;
     }
 
 }
