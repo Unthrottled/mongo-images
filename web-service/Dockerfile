@@ -24,15 +24,6 @@ WORKDIR /app
 
 COPY --from=packager /app/build/libs /app
 
-COPY ./mongodb-cert.crt $JAVA_HOME/jre/lib/security
-
-#NEED TO TRUST THE CERT OTHERWISE IT THROWS A UNKNOWN CERT EXCEPTION
-#AND FOR SOME REASON IT CAN'T USE A TRUST STORE, SO THAT IS WHY THIS IS
-#HERE
-RUN \
-    cd $JAVA_HOME/jre/lib/security \
-    && keytool -keystore cacerts -storepass changeit -noprompt -trustcacerts -importcert -alias mongoCert -file mongodb-cert.crt
-
 ENTRYPOINT ["java", "-Xdebug","-Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=7896","-jar", "app-1.0.0.jar"]
 
 
