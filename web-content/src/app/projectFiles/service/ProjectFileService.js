@@ -8,6 +8,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var LocalProjectFile_1 = require("../model/LocalProjectFile");
+var RemoteProjectFile_1 = require("../model/RemoteProjectFile");
 var ProjectFileService = /** @class */ (function () {
     function ProjectFileService() {
         this._projectFiles = [];
@@ -26,6 +27,20 @@ var ProjectFileService = /** @class */ (function () {
     });
     ProjectFileService.prototype.addProject = function () {
         this._projectFiles.push(new LocalProjectFile_1.LocalProjectFile());
+    };
+    ProjectFileService.prototype.removeProjectFile = function (projectFile) {
+        if (projectFile instanceof RemoteProjectFile_1.RemoteProjectFile) {
+            //todo: remove remote project
+        }
+        else if (projectFile instanceof LocalProjectFile_1.LocalProjectFile) {
+            this.removeLocal(projectFile);
+        }
+    };
+    ProjectFileService.prototype.removeLocal = function (projectFile) {
+        //todo: me
+    };
+    ProjectFileService.prototype.uploadFile = function (projectFile) {
+        //todo: me
     };
     ProjectFileService = __decorate([
         core_1.Injectable()

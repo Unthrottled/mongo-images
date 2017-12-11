@@ -2,6 +2,7 @@
 import {Injectable, OnInit} from "@angular/core";
 import {ProjectFile} from "../model/ProjectFile.model";
 import {LocalProjectFile} from "../model/LocalProjectFile";
+import {RemoteProjectFile} from "../model/RemoteProjectFile";
 
 @Injectable()
 export class ProjectFileService implements OnInit {
@@ -21,5 +22,21 @@ export class ProjectFileService implements OnInit {
 
     addProject() {
         this._projectFiles.push(new LocalProjectFile())
+    }
+
+    removeProjectFile(projectFile: ProjectFile) {
+        if(projectFile instanceof RemoteProjectFile){
+            //todo: remove remote project
+        } else if (projectFile instanceof LocalProjectFile){
+            this.removeLocal(projectFile);
+        }
+    }
+
+    private removeLocal(projectFile: LocalProjectFile) {
+        //todo: me
+    }
+
+    uploadFile(projectFile: ProjectFile) {
+        //todo: me
     }
 }

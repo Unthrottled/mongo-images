@@ -1,5 +1,6 @@
 import {Component, Input} from '@angular/core';
 import {ProjectFile} from "../model/ProjectFile.model";
+import {ProjectFileService} from "../service/ProjectFileService";
 
 @Component({
     selector: 'project-file',
@@ -7,7 +8,7 @@ import {ProjectFile} from "../model/ProjectFile.model";
 })
 export class ProjectFileComponent {
 
-    constructor() {
+    constructor(private projectFileService: ProjectFileService) {
     }
 
     private _projectFile: ProjectFile;
@@ -21,6 +22,7 @@ export class ProjectFileComponent {
         this._projectFile = value;
     }
 
+    //todo: remove dis
     get editMode(): boolean {
         return true;
     }
@@ -30,10 +32,10 @@ export class ProjectFileComponent {
     }
 
     uploadFile(): void {
-
+        this.projectFileService.uploadFile(this.projectFile);
     }
 
     delete(): void {
-
+        this.projectFileService.removeProjectFile(this.projectFile);
     }
 }

@@ -10,8 +10,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
+var ProjectFileService_1 = require("../service/ProjectFileService");
+var LocalProjectFile_1 = require("../model/LocalProjectFile");
 var ProjectFileComponent = /** @class */ (function () {
-    function ProjectFileComponent() {
+    function ProjectFileComponent(projectFileService) {
+        this.projectFileService = projectFileService;
     }
     Object.defineProperty(ProjectFileComponent.prototype, "projectFile", {
         get: function () {
@@ -23,16 +26,9 @@ var ProjectFileComponent = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(ProjectFileComponent.prototype, "imageBinary", {
-        get: function () {
-            return this._projectFile.imageBinary();
-        },
-        enumerable: true,
-        configurable: true
-    });
     Object.defineProperty(ProjectFileComponent.prototype, "editMode", {
         get: function () {
-            return true;
+            return this.projectFile instanceof LocalProjectFile_1.LocalProjectFile;
         },
         enumerable: true,
         configurable: true
@@ -41,8 +37,10 @@ var ProjectFileComponent = /** @class */ (function () {
         this.projectFile = projectFile;
     };
     ProjectFileComponent.prototype.uploadFile = function () {
+        this.projectFileService.uploadFile(this.projectFile);
     };
     ProjectFileComponent.prototype.delete = function () {
+        this.projectFileService.removeProjectFile(this.projectFile);
     };
     __decorate([
         core_1.Input(),
@@ -54,7 +52,7 @@ var ProjectFileComponent = /** @class */ (function () {
             selector: 'project-file',
             template: require('./ProjectFile.component.htm')
         }),
-        __metadata("design:paramtypes", [])
+        __metadata("design:paramtypes", [ProjectFileService_1.ProjectFileService])
     ], ProjectFileComponent);
     return ProjectFileComponent;
 }());
