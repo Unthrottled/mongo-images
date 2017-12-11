@@ -11,28 +11,28 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var ProjectFileService_1 = require("./service/ProjectFileService");
-var ProjectFileComponent = /** @class */ (function () {
-    function ProjectFileComponent(projectFileService) {
+var ProjectFilesComponent = /** @class */ (function () {
+    function ProjectFilesComponent(projectFileService) {
         this.projectFileService = projectFileService;
     }
-    Object.defineProperty(ProjectFileComponent.prototype, "projectFiles", {
+    Object.defineProperty(ProjectFilesComponent.prototype, "projectFiles", {
         get: function () {
             return this.projectFileService.projectFiles;
         },
         enumerable: true,
         configurable: true
     });
-    ProjectFileComponent.prototype.addFile = function () {
+    ProjectFilesComponent.prototype.addFile = function () {
         this.projectFileService.addProject();
     };
-    ProjectFileComponent = __decorate([
+    ProjectFilesComponent = __decorate([
         core_1.Component({
             selector: 'project-file-component',
             template: require('./ProjectFiles.component.htm')
         }),
         __metadata("design:paramtypes", [ProjectFileService_1.ProjectFileService])
-    ], ProjectFileComponent);
-    return ProjectFileComponent;
+    ], ProjectFilesComponent);
+    return ProjectFilesComponent;
 }());
-exports.ProjectFileComponent = ProjectFileComponent;
+exports.ProjectFilesComponent = ProjectFilesComponent;
 //# sourceMappingURL=ProjectFiles.component.js.map

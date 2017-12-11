@@ -8,7 +8,7 @@ import {ProjectFileService} from "./service/ProjectFileService";
     selector: 'project-file-component',
     template: require('./ProjectFiles.component.htm')
 })
-export class ProjectFileComponent {
+export class ProjectFilesComponent {
 
     constructor(private projectFileService: ProjectFileService){}
 

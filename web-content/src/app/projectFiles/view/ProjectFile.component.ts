@@ -3,10 +3,10 @@ import {Observable} from "rxjs/Observable";
 import {ProjectFile} from "../model/ProjectFile.model";
 
 @Component({
-    selector: 'project-file-view',
-    template: require('./ProjectFileView.component.htm')
+    selector: 'project-file',
+    template: require('./ProjectFile.component.htm')
 })
-export class ProjectFileViewComponent {
+export class ProjectFileComponent {
 
     constructor() {
     }
@@ -26,4 +26,19 @@ export class ProjectFileViewComponent {
         return this._projectFile.imageBinary();
     }
 
+    get editMode(): boolean {
+        return true;
+    }
+
+    updateFile(projectFile: ProjectFile): void {
+        this.projectFile = projectFile;
+    }
+
+    uploadFile(): void {
+
+    }
+
+    delete(): void {
+
+    }
 }

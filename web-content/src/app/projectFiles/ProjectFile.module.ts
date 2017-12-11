@@ -5,13 +5,14 @@ import {RemoteProjectFileService} from "./service/RemoteProjectFile.service";
 import {ProjectFileChooseComponent} from "./choose/ProjectFileChoose.component";
 import {ProjectFileListComponent} from "./list/ProjectFileList.component";
 import {ProjectFileViewComponent} from "./view/ProjectFileView.component";
-import {ProjectFileComponent} from "./ProjectFiles.component";
+import {ProjectFilesComponent} from "./ProjectFiles.component";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {HttpClientModule} from "@angular/common/http";
 import {FormsModule} from "@angular/forms";
 import {BrowserModule} from "@angular/platform-browser";
 import {ProjectFileManipulationComponent} from "./manipulation/ProjectFileManipulation.component";
 import {ProjectFileService} from "./service/ProjectFileService";
+import {ProjectFileComponent} from "./view/ProjectFile.component";
 
 @NgModule({
         imports: [
@@ -25,6 +26,7 @@ import {ProjectFileService} from "./service/ProjectFileService";
             ProjectFileListComponent,
             ProjectFileViewComponent,
             ProjectFileComponent,
+            ProjectFilesComponent,
             ProjectFileManipulationComponent
 
         ],
@@ -33,6 +35,7 @@ import {ProjectFileService} from "./service/ProjectFileService";
             ProjectFileListComponent,
             ProjectFileViewComponent,
             ProjectFileComponent,
+            ProjectFilesComponent,
             ProjectFileManipulationComponent
         ],
         bootstrap: [],
