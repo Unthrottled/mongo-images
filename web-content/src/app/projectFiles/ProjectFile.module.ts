@@ -19,7 +19,8 @@ import {ProjectFileComponent} from "./view/ProjectFile.component";
             BrowserModule,
             FormsModule,
             HttpClientModule,
-            BrowserAnimationsModule
+            BrowserAnimationsModule,
+
         ],
         exports: [
             ProjectFileChooseComponent,

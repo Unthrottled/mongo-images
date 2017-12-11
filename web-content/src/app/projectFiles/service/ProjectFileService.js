@@ -11,6 +11,8 @@ var LocalProjectFile_1 = require("../model/LocalProjectFile");
 var RemoteProjectFile_1 = require("../model/RemoteProjectFile");
 var ProjectFileService = /** @class */ (function () {
     function ProjectFileService() {
+        this.projectFileIndices = {};
+        this.hashiCorp = require('node-object-hash');
         this._projectFiles = [];
     }
     ProjectFileService.prototype.ngOnInit = function () {
@@ -26,7 +28,9 @@ var ProjectFileService = /** @class */ (function () {
         configurable: true
     });
     ProjectFileService.prototype.addProject = function () {
-        this._projectFiles.push(new LocalProjectFile_1.LocalProjectFile());
+        var localProjectFile = new LocalProjectFile_1.LocalProjectFile();
+        this._projectFiles.push(localProjectFile);
+        console.log(new this.hashiCorp().hash(this._projectFiles));
     };
     ProjectFileService.prototype.removeProjectFile = function (projectFile) {
         if (projectFile instanceof RemoteProjectFile_1.RemoteProjectFile) {

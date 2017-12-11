@@ -3,9 +3,14 @@ import {Injectable, OnInit} from "@angular/core";
 import {ProjectFile} from "../model/ProjectFile.model";
 import {LocalProjectFile} from "../model/LocalProjectFile";
 import {RemoteProjectFile} from "../model/RemoteProjectFile";
+import {IHash} from "../../IHash.model";
+
 
 @Injectable()
 export class ProjectFileService implements OnInit {
+    private projectFileIndices: IHash<number> = {};
+    private hashiCorp = require('node-object-hash');
+
     ngOnInit(): void {
     }
 
@@ -21,7 +26,9 @@ export class ProjectFileService implements OnInit {
     }
 
     addProject() {
-        this._projectFiles.push(new LocalProjectFile())
+        let localProjectFile = new LocalProjectFile();
+        this._projectFiles.push(localProjectFile);
+        console.log(new this.hashiCorp().hash(this._projectFiles));
     }
 
     removeProjectFile(projectFile: ProjectFile) {

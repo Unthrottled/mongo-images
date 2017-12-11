@@ -28,7 +28,7 @@ var ProjectFileModule = /** @class */ (function () {
                 platform_browser_1.BrowserModule,
                 forms_1.FormsModule,
                 http_1.HttpClientModule,
-                animations_1.BrowserAnimationsModule
+                animations_1.BrowserAnimationsModule,
             ],
             exports: [
                 ProjectFileChoose_component_1.ProjectFileChooseComponent,
