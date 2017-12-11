@@ -3,7 +3,7 @@
     </project-file-manipulation>
     <div *ngIf="imageBinary | async">
         <div class="btn btn-lg btn-success" (click)="uploadFile()">Upload</div>
-        <div class="btn btn-lg btn-danger" (click)="delete()">Delete</div>
     </div>
+    <div class="btn btn-lg btn-danger" (click)="delete()">Delete</div>
 </div>
 <project-file-view [projectFile]="projectFile"></project-file-view>
