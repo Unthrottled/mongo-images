@@ -11,6 +11,7 @@ import {HttpClientModule} from "@angular/common/http";
 import {FormsModule} from "@angular/forms";
 import {BrowserModule} from "@angular/platform-browser";
 import {ProjectFileManipulationComponent} from "./manipulation/ProjectFileManipulation.component";
+import {ProjectFileService} from "./service/ProjectFileService";
 
 @NgModule({
         imports: [
@@ -35,7 +36,7 @@ import {ProjectFileManipulationComponent} from "./manipulation/ProjectFileManipu
             ProjectFileManipulationComponent
         ],
         bootstrap: [],
-        providers: [RemoteProjectFileService],
+        providers: [RemoteProjectFileService, ProjectFileService],
         schemas: []
 })
 export class ProjectFileModule {

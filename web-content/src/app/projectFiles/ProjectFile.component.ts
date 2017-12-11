@@ -2,6 +2,7 @@
 import {Component} from "@angular/core";
 import {ProjectFile} from "./model/ProjectFile.model";
 import {LocalProjectFile} from "./model/LocalProjectFile";
+import {ProjectFileService} from "./service/ProjectFileService";
 
 @Component({
     selector: 'project-file-component',
@@ -9,18 +10,13 @@ import {LocalProjectFile} from "./model/LocalProjectFile";
 })
 export class ProjectFileComponent {
 
-    private _projectFiles: ProjectFile[] = [];
-
+    constructor(private projectFileService: ProjectFileService){}
 
     get projectFiles(): ProjectFile[] {
-        return this._projectFiles;
-    }
-
-    set projectFiles(value: ProjectFile[]) {
-        this._projectFiles = value;
+        return this.projectFileService.projectFiles;
     }
 
     addFile(): void {
-        this.projectFiles.push(new LocalProjectFile());
+        this.projectFileService.addProject();
     }
 }

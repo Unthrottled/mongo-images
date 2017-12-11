@@ -17,6 +17,7 @@ var http_1 = require("@angular/common/http");
 var forms_1 = require("@angular/forms");
 var platform_browser_1 = require("@angular/platform-browser");
 var ProjectFileManipulation_component_1 = require("./manipulation/ProjectFileManipulation.component");
+var ProjectFileService_1 = require("./service/ProjectFileService");
 var ProjectFileModule = /** @class */ (function () {
     function ProjectFileModule() {
     }
@@ -43,7 +44,7 @@ var ProjectFileModule = /** @class */ (function () {
                 ProjectFileManipulation_component_1.ProjectFileManipulationComponent
             ],
             bootstrap: [],
-            providers: [RemoteProjectFile_service_1.RemoteProjectFileService],
+            providers: [RemoteProjectFile_service_1.RemoteProjectFileService, ProjectFileService_1.ProjectFileService],
             schemas: []
         })
     ], ProjectFileModule);
