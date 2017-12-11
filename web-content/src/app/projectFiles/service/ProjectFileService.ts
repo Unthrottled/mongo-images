@@ -9,7 +9,6 @@ import {IHash} from "../../IHash.model";
 @Injectable()
 export class ProjectFileService implements OnInit {
     private projectFileIndices: IHash<number> = {};
-    private hashiCorp = require('node-object-hash');
 
     ngOnInit(): void {
     }
@@ -28,7 +27,6 @@ export class ProjectFileService implements OnInit {
     addProject() {
         let localProjectFile = new LocalProjectFile();
         this._projectFiles.push(localProjectFile);
-        console.log(new this.hashiCorp().hash(this._projectFiles));
     }
 
     removeProjectFile(projectFile: ProjectFile) {
