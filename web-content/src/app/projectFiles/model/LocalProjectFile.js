@@ -20,6 +20,10 @@ var LocalProjectFile = /** @class */ (function () {
             fileReader.readAsDataURL(file);
         });
     }
+    LocalProjectFile.prototype.getName = function () {
+        return this.selectedFile
+            .map(function (file) { return file.toLocaleString(); });
+    };
     LocalProjectFile.prototype.isLoaded = function () {
         return this._loaded;
     };

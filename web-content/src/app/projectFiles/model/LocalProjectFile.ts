@@ -6,6 +6,10 @@ import {Observable} from "rxjs/Observable";
 import {BehaviorSubject} from "rxjs/BehaviorSubject";
 
 export class LocalProjectFile implements ProjectFile {
+    getName(): Observable<string> {
+        return this.selectedFile
+            .map((file: File)=> file.toLocaleString());
+    }
     private _loaded: boolean = false;
 
     isLoaded(): boolean {

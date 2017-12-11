@@ -5,9 +5,13 @@ import {ReplaySubject} from "rxjs/ReplaySubject";
 import {Identifier} from "./Identifier.model";
 
 export class RemoteProjectFile implements ProjectFile {
+    getName(): Observable<string> {
+        return this._name;
+    }
     private replaySubject = new ReplaySubject<any>(1);
     private loaded = false;
     private _rawFile: Observable<any>;
+    private _name: Observable<string> = Observable.empty();
 
     constructor(identifier: Identifier = new Identifier(),
                 file: Observable<any> = Observable.empty()) {
@@ -19,6 +23,7 @@ export class RemoteProjectFile implements ProjectFile {
 
         this._rawFile = file;
         this._identifier = identifier;
+        this._name = Observable.of(this.identifier.id);
     }
 
     private _identifier: Identifier;

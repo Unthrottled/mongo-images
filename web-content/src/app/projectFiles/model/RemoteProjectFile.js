@@ -10,13 +10,18 @@ var RemoteProjectFile = /** @class */ (function () {
         var _this = this;
         this.replaySubject = new ReplaySubject_1.ReplaySubject(1);
         this.loaded = false;
+        this._name = Observable_1.Observable.empty();
         file.subscribe(function (blob) {
             _this.loaded = true;
             _this.replaySubject.next(blob);
         });
         this._rawFile = file;
         this._identifier = identifier;
+        this._name = Observable_1.Observable.of(this.identifier.id);
     }
+    RemoteProjectFile.prototype.getName = function () {
+        return this._name;
+    };
     Object.defineProperty(RemoteProjectFile.prototype, "identifier", {
         get: function () {
             return this._identifier;
