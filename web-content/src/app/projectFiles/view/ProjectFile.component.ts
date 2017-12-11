@@ -1,5 +1,4 @@
 import {Component, Input} from '@angular/core';
-import {Observable} from "rxjs/Observable";
 import {ProjectFile} from "../model/ProjectFile.model";
 
 @Component({
@@ -20,10 +19,6 @@ export class ProjectFileComponent {
 
     set projectFile(value: ProjectFile) {
         this._projectFile = value;
-    }
-
-    get imageBinary(): Observable<any> {
-        return this._projectFile.imageBinary();
     }
 
     get editMode(): boolean {
