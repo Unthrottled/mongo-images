@@ -40,6 +40,10 @@ var ProjectFileViewComponent = /** @class */ (function () {
     ProjectFileViewComponent.prototype.updateFile = function (projectFile) {
         this.projectFile = projectFile;
     };
+    ProjectFileViewComponent.prototype.uploadFile = function () {
+    };
+    ProjectFileViewComponent.prototype.delete = function () {
+    };
     __decorate([
         core_1.Input(),
         __metadata("design:type", Object),

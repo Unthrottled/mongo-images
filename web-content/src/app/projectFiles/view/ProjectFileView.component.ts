@@ -34,4 +34,11 @@ export class ProjectFileViewComponent {
         this.projectFile = projectFile;
     }
 
+    uploadFile(): void {
+
+    }
+
+    delete(): void {
+
+    }
 }
