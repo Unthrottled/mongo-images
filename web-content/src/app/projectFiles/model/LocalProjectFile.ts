@@ -3,6 +3,7 @@
 import {ProjectFile} from "./ProjectFile.model";
 import {ReplaySubject} from "rxjs/ReplaySubject";
 import {Observable} from "rxjs/Observable";
+import {BehaviorSubject} from "rxjs/BehaviorSubject";
 
 export class LocalProjectFile implements ProjectFile {
     private _loaded: boolean = false;
@@ -10,9 +11,8 @@ export class LocalProjectFile implements ProjectFile {
     isLoaded(): boolean {
         return this._loaded;
     }
-    private repeat = new ReplaySubject<MSBaseReader>(1);
+    private repeat = new BehaviorSubject<MSBaseReader>(null);
 
-    private _rawFile: Observable<MSBaseReader>;
 
     constructor(file: Observable<any> = Observable.empty<any>()) {
         this._selectedFile = file;
@@ -26,7 +26,6 @@ export class LocalProjectFile implements ProjectFile {
                 };
                 fileReader.readAsDataURL(file);
             });
-        this._rawFile = this.repeat;
     }
 
     private _selectedFile: Observable<File>;
@@ -36,6 +35,6 @@ export class LocalProjectFile implements ProjectFile {
     }
 
     imageBinary(): Observable<MSBaseReader> {
-        return this._rawFile;
+        return this.repeat;
     }
 }
