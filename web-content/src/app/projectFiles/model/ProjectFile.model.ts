@@ -6,4 +6,5 @@ export interface ProjectFile {
     imageBinary(): Observable<any>;
     isLoaded(): boolean;
     getName(): Observable<string>;
+    setNewFile(file: File): void;
 }

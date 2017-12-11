@@ -19,6 +19,9 @@ var RemoteProjectFile = /** @class */ (function () {
         this._identifier = identifier;
         this._name = Observable_1.Observable.of(this.identifier.id);
     }
+    RemoteProjectFile.prototype.setNewFile = function (file) {
+        //todo: me?
+    };
     RemoteProjectFile.prototype.getName = function () {
         return this._name;
     };

@@ -13,6 +13,7 @@ import {BrowserModule} from "@angular/platform-browser";
 import {ProjectFileManipulationComponent} from "./manipulation/ProjectFileManipulation.component";
 import {ProjectFileService} from "./service/ProjectFileService";
 import {ProjectFileComponent} from "./view/ProjectFile.component";
+import {LocalProjectFileService} from "./service/LocalProjectFile.service";
 
 @NgModule({
         imports: [
@@ -40,7 +41,7 @@ import {ProjectFileComponent} from "./view/ProjectFile.component";
             ProjectFileManipulationComponent
         ],
         bootstrap: [],
-        providers: [RemoteProjectFileService, ProjectFileService],
+        providers: [RemoteProjectFileService, ProjectFileService, LocalProjectFileService],
         schemas: []
 })
 export class ProjectFileModule {

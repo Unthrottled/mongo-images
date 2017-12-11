@@ -10,8 +10,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var LocalProjectFile_1 = require("../model/LocalProjectFile");
-var Observable_1 = require("rxjs/Observable");
 var ProjectFileManipulationComponent = /** @class */ (function () {
     function ProjectFileManipulationComponent() {
         this.projectFileUpdated = new core_1.EventEmitter();
@@ -27,7 +25,7 @@ var ProjectFileManipulationComponent = /** @class */ (function () {
         configurable: true
     });
     ProjectFileManipulationComponent.prototype.fileChosen = function (file) {
-        this._projectFile = new LocalProjectFile_1.LocalProjectFile(Observable_1.Observable.of(file));
+        this._projectFile.setNewFile(file);
         this.projectFileUpdated.emit(this._projectFile);
     };
     __decorate([

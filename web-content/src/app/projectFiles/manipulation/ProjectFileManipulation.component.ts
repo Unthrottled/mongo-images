@@ -28,7 +28,7 @@ export class ProjectFileManipulationComponent {
     }
 
     fileChosen(file: File): void{
-        this._projectFile = new LocalProjectFile(Observable.of(file));
+        this._projectFile.setNewFile(file);
         this.projectFileUpdated.emit(this._projectFile);
     }
 }

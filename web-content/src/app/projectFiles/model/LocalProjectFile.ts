@@ -6,9 +6,11 @@ import {Observable} from "rxjs/Observable";
 import {BehaviorSubject} from "rxjs/BehaviorSubject";
 
 export class LocalProjectFile implements ProjectFile {
+    setNewFile(file: File): void {
+        this.selectedFile=Observable.of(file);
+    }
     getName(): Observable<string> {
-        return this.selectedFile
-            .map((file: File)=> file.toLocaleString());
+        return this._name;
     }
     private _loaded: boolean = false;
 
@@ -17,10 +19,21 @@ export class LocalProjectFile implements ProjectFile {
     }
     private repeat = new BehaviorSubject<MSBaseReader>(null);
 
+    private _name: Observable<string>;
 
-    constructor(file: Observable<any> = Observable.empty<any>()) {
-        this._selectedFile = file;
-        let self = this;
+    constructor(id: string) {
+        this._name = Observable.of(id);
+    }
+
+    private _selectedFile: Observable<File>;
+
+    get selectedFile(): Observable<File> {
+        return this._selectedFile;
+    }
+
+
+    set selectedFile(value: Observable<File>) {
+        this._selectedFile = value;
         this._selectedFile
             .subscribe(file => {
                 let fileReader = new FileReader();
@@ -30,12 +43,6 @@ export class LocalProjectFile implements ProjectFile {
                 };
                 fileReader.readAsDataURL(file);
             });
-    }
-
-    private _selectedFile: Observable<File>;
-
-    get selectedFile(): Observable<File> {
-        return this._selectedFile;
     }
 
     imageBinary(): Observable<MSBaseReader> {

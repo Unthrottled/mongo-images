@@ -5,6 +5,9 @@ import {ReplaySubject} from "rxjs/ReplaySubject";
 import {Identifier} from "./Identifier.model";
 
 export class RemoteProjectFile implements ProjectFile {
+    setNewFile(file: File): void {
+        //todo: me?
+    }
     getName(): Observable<string> {
         return this._name;
     }

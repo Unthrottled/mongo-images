@@ -4,11 +4,17 @@ import {ProjectFile} from "../model/ProjectFile.model";
 import {LocalProjectFile} from "../model/LocalProjectFile";
 import {RemoteProjectFile} from "../model/RemoteProjectFile";
 import {IHash} from "../../IHash.model";
+import {LocalProjectFileService} from "./LocalProjectFile.service";
 
 
 @Injectable()
 export class ProjectFileService implements OnInit {
     private projectFileIndices: IHash<number> = {};
+
+
+    constructor(private localProjectFileService: LocalProjectFileService) {
+
+    }
 
     ngOnInit(): void {
     }
@@ -25,8 +31,11 @@ export class ProjectFileService implements OnInit {
     }
 
     addProject() {
-        let localProjectFile = new LocalProjectFile();
-        this._projectFiles.push(localProjectFile);
+        let items = this.localProjectFileService.createLocalProject();
+        this._projectFiles.push(items);
+        let index = this._projectFiles.length - 1;
+        items.getName()
+            .subscribe(name=>this.localProjectFileService[name]=index);
     }
 
     removeProjectFile(projectFile: ProjectFile) {
@@ -38,7 +47,12 @@ export class ProjectFileService implements OnInit {
     }
 
     private removeLocal(projectFile: LocalProjectFile) {
-        //todo: me
+        projectFile.getName()
+            .subscribe(name=>{
+                let projectIndex = this.localProjectFileService[name];
+                delete this.localProjectFileService[name];
+                this.projectFiles.splice(projectIndex, 1);
+            })
     }
 
     uploadFile(projectFile: ProjectFile) {
