@@ -5,7 +5,7 @@ import {RemoteProjectFileService} from "./service/RemoteProjectFile.service";
 import {ProjectFileChooseComponent} from "./choose/ProjectFileChoose.component";
 import {ProjectFileListComponent} from "./list/ProjectFileList.component";
 import {ProjectFileViewComponent} from "./view/ProjectFileView.component";
-import {ProjectFileComponent} from "./ProjectFile.component";
+import {ProjectFileComponent} from "./ProjectFiles.component";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {HttpClientModule} from "@angular/common/http";
 import {FormsModule} from "@angular/forms";

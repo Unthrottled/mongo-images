@@ -28,11 +28,11 @@ var ProjectFileComponent = /** @class */ (function () {
     ProjectFileComponent = __decorate([
         core_1.Component({
             selector: 'project-file-component',
-            template: require('./ProjectFile.component.htm')
+            template: require('./ProjectFiles.component.htm')
         }),
         __metadata("design:paramtypes", [ProjectFileService_1.ProjectFileService])
     ], ProjectFileComponent);
     return ProjectFileComponent;
 }());
 exports.ProjectFileComponent = ProjectFileComponent;
-//# sourceMappingURL=ProjectFile.component.js.map
+//# sourceMappingURL=ProjectFiles.component.js.map

@@ -6,7 +6,7 @@ import {ProjectFileService} from "./service/ProjectFileService";
 
 @Component({
     selector: 'project-file-component',
-    template: require('./ProjectFile.component.htm')
+    template: require('./ProjectFiles.component.htm')
 })
 export class ProjectFileComponent {
 
