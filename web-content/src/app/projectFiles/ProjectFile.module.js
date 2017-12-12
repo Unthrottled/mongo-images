@@ -20,6 +20,7 @@ var ProjectFileManipulation_component_1 = require("./manipulation/ProjectFileMan
 var ProjectFileService_1 = require("./service/ProjectFileService");
 var ProjectFile_component_1 = require("./view/ProjectFile.component");
 var LocalProjectFile_service_1 = require("./service/LocalProjectFile.service");
+var ImageUpload_service_1 = require("./service/ImageUpload.service");
 var ProjectFileModule = /** @class */ (function () {
     function ProjectFileModule() {
     }
@@ -48,7 +49,11 @@ var ProjectFileModule = /** @class */ (function () {
                 ProjectFileManipulation_component_1.ProjectFileManipulationComponent
             ],
             bootstrap: [],
-            providers: [RemoteProjectFile_service_1.RemoteProjectFileService, ProjectFileService_1.ProjectFileService, LocalProjectFile_service_1.LocalProjectFileService],
+            providers: [RemoteProjectFile_service_1.RemoteProjectFileService,
+                ProjectFileService_1.ProjectFileService,
+                LocalProjectFile_service_1.LocalProjectFileService,
+                ImageUpload_service_1.ImageUploadService
+            ],
             schemas: []
         })
     ], ProjectFileModule);

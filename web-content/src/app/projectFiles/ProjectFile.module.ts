@@ -14,6 +14,7 @@ import {ProjectFileManipulationComponent} from "./manipulation/ProjectFileManipu
 import {ProjectFileService} from "./service/ProjectFileService";
 import {ProjectFileComponent} from "./view/ProjectFile.component";
 import {LocalProjectFileService} from "./service/LocalProjectFile.service";
+import {ImageUploadService} from "./service/ImageUpload.service";
 
 @NgModule({
         imports: [
@@ -41,7 +42,11 @@ import {LocalProjectFileService} from "./service/LocalProjectFile.service";
             ProjectFileManipulationComponent
         ],
         bootstrap: [],
-        providers: [RemoteProjectFileService, ProjectFileService, LocalProjectFileService],
+        providers: [RemoteProjectFileService,
+            ProjectFileService,
+            LocalProjectFileService,
+            ImageUploadService
+        ],
         schemas: []
 })
 export class ProjectFileModule {
