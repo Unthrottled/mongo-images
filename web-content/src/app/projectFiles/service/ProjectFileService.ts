@@ -5,6 +5,7 @@ import {LocalProjectFile} from "../model/LocalProjectFile";
 import {RemoteProjectFile} from "../model/RemoteProjectFile";
 import {IHash} from "../../IHash.model";
 import {LocalProjectFileService} from "./LocalProjectFile.service";
+import {ImageUploadService} from "./ImageUpload.service";
 
 
 @Injectable()
@@ -12,7 +13,7 @@ export class ProjectFileService implements OnInit {
     private projectFileIndices: IHash<number> = {};
 
 
-    constructor(private localProjectFileService: LocalProjectFileService) {
+    constructor(private localProjectFileService: LocalProjectFileService, private imageUploadService: ImageUploadService) {
 
     }
 
@@ -55,7 +56,7 @@ export class ProjectFileService implements OnInit {
             })
     }
 
-    uploadFile(projectFile: ProjectFile) {
-        //todo: me
+    uploadFile(projectFile: LocalProjectFile) {
+        this.imageUploadService.uploadImage(projectFile.selectedFile);
     }
 }
