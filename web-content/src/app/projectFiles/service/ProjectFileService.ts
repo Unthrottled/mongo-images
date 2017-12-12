@@ -49,10 +49,7 @@ export class ProjectFileService implements OnInit {
     }
 
     private removeLocal(projectFile: LocalProjectFile) {
-        let name = projectFile.getName();
-        let projectIndex = this.projectFileIndices[name];
-        delete this.projectFileIndices[name];
-        this.projectFiles.splice(projectIndex, 1);
+        this.projectFiles.splice(this.removeProjectIndex(projectFile), 1);
 
     }
 
@@ -60,7 +57,16 @@ export class ProjectFileService implements OnInit {
         this.imageUploadService.uploadImage(projectFile.selectedFile)
             .map(imageId=>this.remoteProjectFileService.fetchRemoteProject(imageId))
             .subscribe(remoteProject=> {
-                projectFile.getName();
+                let index = this.removeProjectIndex(projectFile);
+                this.projectFileIndices[remoteProject.getName()] = index;
+                this.projectFiles[index] = remoteProject;
             });
+    }
+
+    private removeProjectIndex(projectFile: LocalProjectFile): number {
+        let name = projectFile.getName();
+        let projectIndex = this.projectFileIndices[name];
+        delete this.projectFileIndices[name];
+        return projectIndex;
     }
 }

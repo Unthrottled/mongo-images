@@ -49,18 +49,23 @@ var ProjectFileService = /** @class */ (function () {
         }
     };
     ProjectFileService.prototype.removeLocal = function (projectFile) {
-        var name = projectFile.getName();
-        var projectIndex = this.projectFileIndices[name];
-        delete this.projectFileIndices[name];
-        this.projectFiles.splice(projectIndex, 1);
+        this.projectFiles.splice(this.removeProjectIndex(projectFile), 1);
     };
     ProjectFileService.prototype.uploadFile = function (projectFile) {
         var _this = this;
         this.imageUploadService.uploadImage(projectFile.selectedFile)
             .map(function (imageId) { return _this.remoteProjectFileService.fetchRemoteProject(imageId); })
             .subscribe(function (remoteProject) {
-            projectFile.getName();
+            var index = _this.removeProjectIndex(projectFile);
+            _this.projectFileIndices[remoteProject.getName()] = index;
+            _this.projectFiles[index] = remoteProject;
         });
+    };
+    ProjectFileService.prototype.removeProjectIndex = function (projectFile) {
+        var name = projectFile.getName();
+        var projectIndex = this.projectFileIndices[name];
+        delete this.projectFileIndices[name];
+        return projectIndex;
     };
     ProjectFileService = __decorate([
         core_1.Injectable(),
