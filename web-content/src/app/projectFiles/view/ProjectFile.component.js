@@ -11,6 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var ProjectFileService_1 = require("../service/ProjectFileService");
+var LocalProjectFile_1 = require("../model/LocalProjectFile");
 var ProjectFileComponent = /** @class */ (function () {
     function ProjectFileComponent(projectFileService) {
         this.projectFileService = projectFileService;
@@ -28,7 +29,7 @@ var ProjectFileComponent = /** @class */ (function () {
     Object.defineProperty(ProjectFileComponent.prototype, "editMode", {
         //todo: remove dis
         get: function () {
-            return true;
+            return this.projectFile instanceof LocalProjectFile_1.LocalProjectFile;
         },
         enumerable: true,
         configurable: true

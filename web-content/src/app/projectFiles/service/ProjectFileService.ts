@@ -6,6 +6,7 @@ import {RemoteProjectFile} from "../model/RemoteProjectFile";
 import {IHash} from "../../IHash.model";
 import {LocalProjectFileService} from "./LocalProjectFile.service";
 import {ImageUploadService} from "./ImageUpload.service";
+import {RemoteProjectFileService} from "./RemoteProjectFile.service";
 
 
 @Injectable()
@@ -13,7 +14,9 @@ export class ProjectFileService implements OnInit {
     private projectFileIndices: IHash<number> = {};
 
 
-    constructor(private localProjectFileService: LocalProjectFileService, private imageUploadService: ImageUploadService) {
+    constructor(private localProjectFileService: LocalProjectFileService,
+                private remoteProjectFileService: RemoteProjectFileService,
+                private imageUploadService: ImageUploadService) {
 
     }
 
@@ -34,9 +37,7 @@ export class ProjectFileService implements OnInit {
     addProject() {
         let items = this.localProjectFileService.createLocalProject();
         this._projectFiles.push(items);
-        let index = this._projectFiles.length - 1;
-        items.getName()
-            .subscribe(name=>this.localProjectFileService[name]=index);
+        this.projectFileIndices[items.getName()]=this._projectFiles.length - 1;
     }
 
     removeProjectFile(projectFile: ProjectFile) {
@@ -48,15 +49,18 @@ export class ProjectFileService implements OnInit {
     }
 
     private removeLocal(projectFile: LocalProjectFile) {
-        projectFile.getName()
-            .subscribe(name=>{
-                let projectIndex = this.localProjectFileService[name];
-                delete this.localProjectFileService[name];
-                this.projectFiles.splice(projectIndex, 1);
-            })
+        let name = projectFile.getName();
+        let projectIndex = this.projectFileIndices[name];
+        delete this.projectFileIndices[name];
+        this.projectFiles.splice(projectIndex, 1);
+
     }
 
     uploadFile(projectFile: LocalProjectFile) {
-        this.imageUploadService.uploadImage(projectFile.selectedFile);
+        this.imageUploadService.uploadImage(projectFile.selectedFile)
+            .map(imageId=>this.remoteProjectFileService.fetchRemoteProject(imageId))
+            .subscribe(remoteProject=> {
+                projectFile.getName();
+            });
     }
 }

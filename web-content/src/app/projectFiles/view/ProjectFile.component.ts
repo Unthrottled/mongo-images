@@ -2,6 +2,7 @@ import {Component, Input} from '@angular/core';
 import {ProjectFile} from "../model/ProjectFile.model";
 import {ProjectFileService} from "../service/ProjectFileService";
 import {Observable} from "rxjs/Observable";
+import {LocalProjectFile} from "../model/LocalProjectFile";
 
 @Component({
     selector: 'project-file',
@@ -25,7 +26,7 @@ export class ProjectFileComponent {
 
     //todo: remove dis
     get editMode(): boolean {
-        return true;
+        return this.projectFile instanceof LocalProjectFile;
     }
 
     updateFile(projectFile: ProjectFile): void {
@@ -33,7 +34,7 @@ export class ProjectFileComponent {
     }
 
     uploadFile(): void {
-        this.projectFileService.uploadFile(this.projectFile);
+        this.projectFileService.uploadFile(<LocalProjectFile>this.projectFile);
     }
 
     delete(): void {

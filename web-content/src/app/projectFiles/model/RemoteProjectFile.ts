@@ -8,13 +8,13 @@ export class RemoteProjectFile implements ProjectFile {
     setNewFile(file: File): void {
         //todo: me?
     }
-    getName(): Observable<string> {
+    getName(): string {
         return this._name;
     }
     private replaySubject = new ReplaySubject<any>(1);
     private loaded = false;
     private _rawFile: Observable<any>;
-    private _name: Observable<string> = Observable.empty();
+    private _name: string;
 
     constructor(identifier: Identifier = new Identifier(),
                 file: Observable<any> = Observable.empty()) {
@@ -26,7 +26,7 @@ export class RemoteProjectFile implements ProjectFile {
 
         this._rawFile = file;
         this._identifier = identifier;
-        this._name = Observable.of(this.identifier.id);
+        this._name = this.identifier.id;
     }
 
     private _identifier: Identifier;

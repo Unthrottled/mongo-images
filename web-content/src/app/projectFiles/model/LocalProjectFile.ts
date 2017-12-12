@@ -9,7 +9,7 @@ export class LocalProjectFile implements ProjectFile {
     setNewFile(file: File): void {
         this.selectedFile=Observable.of(file);
     }
-    getName(): Observable<string> {
+    getName(): string {
         return this._name;
     }
     private _loaded: boolean = false;
@@ -19,10 +19,10 @@ export class LocalProjectFile implements ProjectFile {
     }
     private repeat = new BehaviorSubject<MSBaseReader>(null);
 
-    private _name: Observable<string>;
+    private _name: string;
 
     constructor(id: string) {
-        this._name = Observable.of(id);
+        this._name = id;
     }
 
     private _selectedFile: Observable<File>;

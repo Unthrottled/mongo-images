@@ -6,7 +6,7 @@ var LocalProjectFile = /** @class */ (function () {
     function LocalProjectFile(id) {
         this._loaded = false;
         this.repeat = new BehaviorSubject_1.BehaviorSubject(null);
-        this._name = Observable_1.Observable.of(id);
+        this._name = id;
     }
     LocalProjectFile.prototype.setNewFile = function (file) {
         this.selectedFile = Observable_1.Observable.of(file);
