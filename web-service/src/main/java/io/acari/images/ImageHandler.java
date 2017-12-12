@@ -57,12 +57,13 @@ public class ImageHandler {
         .map(Objects::nonNull);
   }
 
-  public Flux<String> findAllNames() {
+  public Flux<Identifier> findAllNames() {
     return Flux.from(gridFSBucket.find())
         .map(GridFSFile::getId)
         .map(BsonValue::asObjectId)
         .map(BsonObjectId::getValue)
-        .map(ObjectId::toHexString);
+        .map(ObjectId::toHexString)
+        .map(Identifier::new);
 
   }
 }
