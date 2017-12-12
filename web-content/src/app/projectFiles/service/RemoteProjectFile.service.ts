@@ -4,6 +4,7 @@ import {BackendAPIService} from "../../BackendAPI.service";
 import {WindowRef} from "../../window";
 import {RemoteProjectFile} from "../model/RemoteProjectFile";
 import {Identifier} from "../model/Identifier.model";
+import {Observable} from "rxjs/Observable";
 
 @Injectable()
 export class RemoteProjectFileService {
@@ -22,6 +23,11 @@ export class RemoteProjectFileService {
                     }
                     return 'data:image/png;base64,' + this.windowRef.nativeWindow.btoa(binary);
                 }));
+    }
+
+    public fetchAllRemoteProjects(): Observable<RemoteProjectFile[]> {
+        return this.backendAPISevice.fetchAllImageIds()
+
     }
 
 }

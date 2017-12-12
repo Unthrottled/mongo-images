@@ -20,6 +20,12 @@ export class BackendAPIService {
         });
     }
 
+    fetchAllImageIds(): Observable<any> {
+        return this.httpClient.get('./api/images', {
+            responseType: 'json'
+        })
+    }
+
     deleteImage(_id: string): Observable<ArrayBuffer> {
         return this.httpClient.delete('./api/image/delete/' + _id, {
             responseType: 'arraybuffer'

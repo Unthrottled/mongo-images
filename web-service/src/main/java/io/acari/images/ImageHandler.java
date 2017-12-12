@@ -4,6 +4,9 @@ import com.mongodb.client.gridfs.model.GridFSFile;
 import com.mongodb.reactivestreams.client.gridfs.GridFSBucket;
 import com.mongodb.reactivestreams.client.gridfs.GridFSDownloadStream;
 import com.mongodb.reactivestreams.client.gridfs.helpers.AsyncStreamHelper;
+import org.bson.BsonObjectId;
+import org.bson.BsonString;
+import org.bson.BsonValue;
 import org.bson.types.ObjectId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -56,7 +59,10 @@ public class ImageHandler {
 
   public Flux<String> findAllNames() {
     return Flux.from(gridFSBucket.find())
-        .map(GridFSFile::getMD5);
+        .map(GridFSFile::getId)
+        .map(BsonValue::asObjectId)
+        .map(BsonObjectId::getValue)
+        .map(ObjectId::toHexString);
 
   }
 }

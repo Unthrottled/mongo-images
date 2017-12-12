@@ -32,6 +32,9 @@ var RemoteProjectFileService = /** @class */ (function () {
             return 'data:image/png;base64,' + _this.windowRef.nativeWindow.btoa(binary);
         }));
     };
+    RemoteProjectFileService.prototype.fetchAllRemoteProjects = function () {
+        return this.backendAPISevice.fetchAllImageIds();
+    };
     RemoteProjectFileService = __decorate([
         core_1.Injectable(),
         __metadata("design:paramtypes", [BackendAPI_service_1.BackendAPIService, window_1.WindowRef])

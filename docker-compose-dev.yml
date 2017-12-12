@@ -13,7 +13,7 @@ services:
     build: ./web-service
     image: alexsimons/mongo-images-web-service:1.0.0
     ports:
-      - "8989:8989"
+      - "80:80"
   mongo:
     image: mongo:latest
     volumes:

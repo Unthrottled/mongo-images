@@ -25,6 +25,11 @@ var BackendAPIService = /** @class */ (function () {
             responseType: 'arraybuffer'
         });
     };
+    BackendAPIService.prototype.fetchAllImageIds = function () {
+        return this.httpClient.get('./api/images', {
+            responseType: 'json'
+        });
+    };
     BackendAPIService.prototype.deleteImage = function (_id) {
         return this.httpClient.delete('./api/image/delete/' + _id, {
             responseType: 'arraybuffer'
