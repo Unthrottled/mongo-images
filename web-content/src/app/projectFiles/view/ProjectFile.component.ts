@@ -1,6 +1,7 @@
 import {Component, Input} from '@angular/core';
 import {ProjectFile} from "../model/ProjectFile.model";
 import {ProjectFileService} from "../service/ProjectFileService";
+import {Observable} from "rxjs/Observable";
 
 @Component({
     selector: 'project-file',
@@ -37,5 +38,9 @@ export class ProjectFileComponent {
 
     delete(): void {
         this.projectFileService.removeProjectFile(this.projectFile);
+    }
+
+    get imageBinary(): Observable<any> {
+        return this._projectFile.imageBinary();
     }
 }

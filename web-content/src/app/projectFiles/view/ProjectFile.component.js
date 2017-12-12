@@ -42,6 +42,13 @@ var ProjectFileComponent = /** @class */ (function () {
     ProjectFileComponent.prototype.delete = function () {
         this.projectFileService.removeProjectFile(this.projectFile);
     };
+    Object.defineProperty(ProjectFileComponent.prototype, "imageBinary", {
+        get: function () {
+            return this._projectFile.imageBinary();
+        },
+        enumerable: true,
+        configurable: true
+    });
     __decorate([
         core_1.Input(),
         __metadata("design:type", Object),
