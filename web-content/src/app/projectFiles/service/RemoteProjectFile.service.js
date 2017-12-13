@@ -41,6 +41,9 @@ var RemoteProjectFileService = /** @class */ (function () {
             .map(function (identifier) { return identifier._id; })
             .map(function (id) { return _this.fetchRemoteProject(id); });
     };
+    RemoteProjectFileService.prototype.removeProject = function (projectToRemove) {
+        return this.backendAPISevice.deleteImage(projectToRemove.id);
+    };
     RemoteProjectFileService = __decorate([
         core_1.Injectable(),
         __metadata("design:paramtypes", [BackendAPI_service_1.BackendAPIService, window_1.WindowRef])

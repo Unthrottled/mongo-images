@@ -52,8 +52,13 @@ var ProjectFileService = /** @class */ (function () {
         this.projectFileIndices[items.getName()] = this._projectFiles.length - 1;
     };
     ProjectFileService.prototype.removeProjectFile = function (projectFile) {
+        var _this = this;
         if (projectFile instanceof RemoteProjectFile_1.RemoteProjectFile) {
-            //todo: remove remote project
+            this.remoteProjectFileService.removeProject(projectFile)
+                .filter(function (b) { return b; })
+                .subscribe(function (result) {
+                _this.removeLocal(projectFile);
+            });
         }
         else if (projectFile instanceof LocalProjectFile_1.LocalProjectFile) {
             this.removeLocal(projectFile);

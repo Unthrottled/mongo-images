@@ -32,8 +32,8 @@ var BackendAPIService = /** @class */ (function () {
     };
     BackendAPIService.prototype.deleteImage = function (_id) {
         return this.httpClient.delete('./api/image/delete/' + _id, {
-            responseType: 'arraybuffer'
-        });
+            responseType: 'text'
+        }).map(function (response) { return (response == 'true'); });
     };
     BackendAPIService = __decorate([
         core_1.Injectable(),

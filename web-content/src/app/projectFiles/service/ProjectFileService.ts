@@ -53,13 +53,17 @@ export class ProjectFileService implements OnInit {
 
     removeProjectFile(projectFile: ProjectFile) {
         if(projectFile instanceof RemoteProjectFile){
-            //todo: remove remote project
+            this.remoteProjectFileService.removeProject(<RemoteProjectFile>projectFile)
+                .filter(b=>b)
+                .subscribe(result=>{
+                    this.removeLocal(projectFile);
+                });
         } else if (projectFile instanceof LocalProjectFile){
             this.removeLocal(projectFile);
         }
     }
 
-    private removeLocal(projectFile: LocalProjectFile) {
+    private removeLocal(projectFile: ProjectFile) {
         this.projectFiles.splice(this.removeProjectIndex(projectFile), 1);
 
     }
@@ -74,7 +78,7 @@ export class ProjectFileService implements OnInit {
             });
     }
 
-    private removeProjectIndex(projectFile: LocalProjectFile): number {
+    private removeProjectIndex(projectFile: ProjectFile): number {
         let name = projectFile.getName();
         let projectIndex = this.projectFileIndices[name];
         delete this.projectFileIndices[name];
