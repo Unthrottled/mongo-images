@@ -1,5 +1,5 @@
 
-import {Component} from "@angular/core";
+import {Component, OnInit} from "@angular/core";
 import {ProjectFile} from "./model/ProjectFile.model";
 import {LocalProjectFile} from "./model/LocalProjectFile";
 import {ProjectFileService} from "./service/ProjectFileService";
@@ -8,7 +8,10 @@ import {ProjectFileService} from "./service/ProjectFileService";
     selector: 'project-file-component',
     template: require('./ProjectFiles.component.htm')
 })
-export class ProjectFilesComponent {
+export class ProjectFilesComponent implements OnInit {
+    ngOnInit(): void {
+        this.projectFileService.ngOnInit();
+    }
 
     constructor(private projectFileService: ProjectFileService){}
 

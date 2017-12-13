@@ -15,6 +15,9 @@ var ProjectFilesComponent = /** @class */ (function () {
     function ProjectFilesComponent(projectFileService) {
         this.projectFileService = projectFileService;
     }
+    ProjectFilesComponent.prototype.ngOnInit = function () {
+        this.projectFileService.ngOnInit();
+    };
     Object.defineProperty(ProjectFilesComponent.prototype, "projectFiles", {
         get: function () {
             return this.projectFileService.projectFiles;

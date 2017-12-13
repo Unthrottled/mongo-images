@@ -21,6 +21,13 @@ export class ProjectFileService implements OnInit {
     }
 
     ngOnInit(): void {
+        this.remoteProjectFileService.fetchAllRemoteProjects()
+            .subscribe(remoteFile=> {
+                console.log(remoteFile);
+                this.addProjectToList(remoteFile);
+            }, error=> {
+                console.log(error);
+            })
     }
 
     private _projectFiles: ProjectFile[] = [];
@@ -36,8 +43,12 @@ export class ProjectFileService implements OnInit {
 
     addProject() {
         let items = this.localProjectFileService.createLocalProject();
+        this.addProjectToList(items);
+    }
+
+    private addProjectToList(items: ProjectFile) {
         this._projectFiles.push(items);
-        this.projectFileIndices[items.getName()]=this._projectFiles.length - 1;
+        this.projectFileIndices[items.getName()] = this._projectFiles.length - 1;
     }
 
     removeProjectFile(projectFile: ProjectFile) {

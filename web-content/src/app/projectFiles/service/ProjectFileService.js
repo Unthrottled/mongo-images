@@ -24,6 +24,14 @@ var ProjectFileService = /** @class */ (function () {
         this._projectFiles = [];
     }
     ProjectFileService.prototype.ngOnInit = function () {
+        var _this = this;
+        this.remoteProjectFileService.fetchAllRemoteProjects()
+            .subscribe(function (remoteFile) {
+            console.log(remoteFile);
+            _this.addProjectToList(remoteFile);
+        }, function (error) {
+            console.log(error);
+        });
     };
     Object.defineProperty(ProjectFileService.prototype, "projectFiles", {
         get: function () {
@@ -37,6 +45,9 @@ var ProjectFileService = /** @class */ (function () {
     });
     ProjectFileService.prototype.addProject = function () {
         var items = this.localProjectFileService.createLocalProject();
+        this.addProjectToList(items);
+    };
+    ProjectFileService.prototype.addProjectToList = function (items) {
         this._projectFiles.push(items);
         this.projectFileIndices[items.getName()] = this._projectFiles.length - 1;
     };

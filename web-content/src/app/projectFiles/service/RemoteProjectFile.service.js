@@ -14,6 +14,7 @@ var BackendAPI_service_1 = require("../../BackendAPI.service");
 var window_1 = require("../../window");
 var RemoteProjectFile_1 = require("../model/RemoteProjectFile");
 var Identifier_model_1 = require("../model/Identifier.model");
+var Observable_1 = require("rxjs/Observable");
 var RemoteProjectFileService = /** @class */ (function () {
     function RemoteProjectFileService(backendAPISevice, windowRef) {
         this.backendAPISevice = backendAPISevice;
@@ -33,7 +34,12 @@ var RemoteProjectFileService = /** @class */ (function () {
         }));
     };
     RemoteProjectFileService.prototype.fetchAllRemoteProjects = function () {
-        return this.backendAPISevice.fetchAllImageIds();
+        var _this = this;
+        return this.backendAPISevice.fetchAllImageIds()
+            .map(function (response) { return response; })
+            .flatMap(function (files) { return Observable_1.Observable.from(files); })
+            .map(function (identifier) { return identifier._id; })
+            .map(function (id) { return _this.fetchRemoteProject(id); });
     };
     RemoteProjectFileService = __decorate([
         core_1.Injectable(),

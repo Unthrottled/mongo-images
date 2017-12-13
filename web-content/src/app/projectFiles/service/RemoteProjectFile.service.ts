@@ -1,4 +1,3 @@
-
 import {Injectable} from "@angular/core";
 import {BackendAPIService} from "../../BackendAPI.service";
 import {WindowRef} from "../../window";
@@ -9,25 +8,29 @@ import {Observable} from "rxjs/Observable";
 @Injectable()
 export class RemoteProjectFileService {
 
-    constructor(private backendAPISevice: BackendAPIService, private windowRef: WindowRef){}
+    constructor(private backendAPISevice: BackendAPIService, private windowRef: WindowRef) {
+    }
 
     public fetchRemoteProject(fileId: string): RemoteProjectFile {
         return new RemoteProjectFile(new Identifier(fileId),
             this.backendAPISevice.fetchImage(fileId)
-                .map(arrayBuffer=>{
+                .map(arrayBuffer => {
                     let binary = '';
                     let bytes = new Uint8Array(arrayBuffer);
                     let len = bytes.byteLength;
-                    for(let i = 0; i < len; ++i){
+                    for (let i = 0; i < len; ++i) {
                         binary += String.fromCharCode(bytes[i]);
                     }
                     return 'data:image/png;base64,' + this.windowRef.nativeWindow.btoa(binary);
                 }));
     }
 
-    public fetchAllRemoteProjects(): Observable<RemoteProjectFile[]> {
+    public fetchAllRemoteProjects(): Observable<RemoteProjectFile> {
         return this.backendAPISevice.fetchAllImageIds()
-
+            .map((response: any[]) => response)
+            .flatMap(files => Observable.from(files))
+            .map(identifier => identifier._id)
+            .map(id => this.fetchRemoteProject(id));
     }
 
 }
