@@ -26,9 +26,9 @@ export class BackendAPIService {
         })
     }
 
-    deleteImage(_id: string): Observable<ArrayBuffer> {
+    deleteImage(_id: string): Observable<boolean> {
         return this.httpClient.delete('./api/image/delete/' + _id, {
-            responseType: 'arraybuffer'
-        });
+            responseType: 'text'
+        }).map(response => (response == 'true'));
     }
 }
