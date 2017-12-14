@@ -2,7 +2,7 @@ import {Injectable, OnInit} from "@angular/core";
 import {ProjectFile} from "../model/ProjectFile.model";
 import {LocalProjectFile} from "../model/LocalProjectFile";
 import {RemoteProjectFile} from "../model/RemoteProjectFile";
-import {IHash} from "../../IHash.model";
+import {IHash} from "../../util/IHash.model";
 import {LocalProjectFileService} from "./LocalProjectFile.service";
 import {ImageUploadService} from "./ImageUpload.service";
 import {RemoteProjectFileService} from "./RemoteProjectFile.service";

@@ -7,7 +7,7 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {AppComponent} from "./app.component";
 import {HttpClientModule} from "@angular/common/http";
 import {ProjectFileModule} from "./projectFiles/ProjectFile.module";
-import {WindowRef} from "./window";
+import {WindowRef} from "./util/window";
 import {BackendAPIService} from "./BackendAPI.service";
 
 
