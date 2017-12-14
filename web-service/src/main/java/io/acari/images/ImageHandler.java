@@ -55,8 +55,8 @@ public class ImageHandler {
 
   public Mono<Boolean> removeImage(String imageId) {
     return Mono.from(gridFSBucket.delete(new ObjectId(imageId)))
-        .onErrorResume(throwable -> Mono.just(Success.SUCCESS))
-        .map(Objects::nonNull);
+        .map(Objects::nonNull)
+        .onErrorReturn(false);
   }
 
   public Flux<Identifier> findAllNames() {
