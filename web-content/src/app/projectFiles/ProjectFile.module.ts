@@ -1,5 +1,3 @@
-
-
 import {NgModule} from "@angular/core";
 import {RemoteProjectFileService} from "./service/RemoteProjectFile.service";
 import {ProjectFileChooseComponent} from "./choose/ProjectFileChoose.component";

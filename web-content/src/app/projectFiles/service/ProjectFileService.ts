@@ -1,4 +1,3 @@
-
 import {Injectable, OnInit} from "@angular/core";
 import {ProjectFile} from "../model/ProjectFile.model";
 import {LocalProjectFile} from "../model/LocalProjectFile";

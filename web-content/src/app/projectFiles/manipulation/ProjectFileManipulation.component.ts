@@ -1,9 +1,5 @@
-
-
 import {Component, EventEmitter, Input, Output} from "@angular/core";
 import {ProjectFile} from "../model/ProjectFile.model";
-import {LocalProjectFile} from "../model/LocalProjectFile";
-import {Observable} from "rxjs/Observable";
 
 @Component(
     {

@@ -11,7 +11,6 @@ import {WindowRef} from "./window";
 import {BackendAPIService} from "./BackendAPI.service";
 
 
-
 @NgModule({
     imports: [
         BrowserModule,

@@ -1,7 +1,4 @@
-
-
 import {ProjectFile} from "./ProjectFile.model";
-import {ReplaySubject} from "rxjs/ReplaySubject";
 import {Observable} from "rxjs/Observable";
 import {BehaviorSubject} from "rxjs/BehaviorSubject";
 
