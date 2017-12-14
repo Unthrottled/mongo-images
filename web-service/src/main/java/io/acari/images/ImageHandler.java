@@ -1,6 +1,7 @@
 package io.acari.images;
 
 import com.mongodb.client.gridfs.model.GridFSFile;
+import com.mongodb.reactivestreams.client.Success;
 import com.mongodb.reactivestreams.client.gridfs.GridFSBucket;
 import com.mongodb.reactivestreams.client.gridfs.GridFSDownloadStream;
 import com.mongodb.reactivestreams.client.gridfs.helpers.AsyncStreamHelper;
@@ -54,6 +55,7 @@ public class ImageHandler {
 
   public Mono<Boolean> removeImage(String imageId) {
     return Mono.from(gridFSBucket.delete(new ObjectId(imageId)))
+        .onErrorResume(throwable -> Mono.just(Success.SUCCESS))
         .map(Objects::nonNull);
   }
 
