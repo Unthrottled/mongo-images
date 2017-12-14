@@ -6,8 +6,10 @@
     <project-file-view [projectFile]="projectFile"></project-file-view>
     <div class="image-button-container">
         <div class="btn btn-lg btn-danger" (click)="delete()">Delete</div>
-        <div *ngIf="imageBinary | async">
-            <div class="btn btn-lg btn-success" (click)="uploadFile()">Upload</div>
+        <div *ngIf="editMode">
+            <div *ngIf="imageBinary | async">
+                <div class="btn btn-lg btn-success" (click)="uploadFile()">Upload</div>
+            </div>
         </div>
     </div>
 </div>
