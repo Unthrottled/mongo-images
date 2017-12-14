@@ -6,7 +6,9 @@
         <div class="btn btn-lg btn-danger" (click)="delete()">Delete</div>
     </div>
 </div>
-<div class="image-container"
-     *ngIf="imageBinary | async">
-    <img [src]="imageBinary | async" alt="SOME IMAGE"/>
+<div class="image-holder">
+    <div class="image-container"
+         *ngIf="imageBinary | async">
+        <img [src]="imageBinary | async" alt="SOME IMAGE"/>
+    </div>
 </div>
