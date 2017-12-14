@@ -52,12 +52,12 @@ export class ProjectFileService implements OnInit {
 
     removeProjectFile(projectFile: ProjectFile) {
         if(projectFile instanceof RemoteProjectFile){
+            let self = this;
             this.remoteProjectFileService.removeProject(<RemoteProjectFile>projectFile)
                 .filter(b=>b)
                 .subscribe(result=>{
-                    this.removeLocal(projectFile);
+                    self.removeLocal(projectFile);
                 }, error=>{
-                    console.log("Oh snap");
                     console.log(error)
             });
         } else if (projectFile instanceof LocalProjectFile){

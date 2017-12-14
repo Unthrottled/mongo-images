@@ -51,14 +51,13 @@ var ProjectFileService = /** @class */ (function () {
         this.projectFileIndices[items.getName()] = this._projectFiles.length - 1;
     };
     ProjectFileService.prototype.removeProjectFile = function (projectFile) {
-        var _this = this;
         if (projectFile instanceof RemoteProjectFile_1.RemoteProjectFile) {
+            var self_1 = this;
             this.remoteProjectFileService.removeProject(projectFile)
                 .filter(function (b) { return b; })
                 .subscribe(function (result) {
-                _this.removeLocal(projectFile);
+                self_1.removeLocal(projectFile);
             }, function (error) {
-                console.log("Oh snap");
                 console.log(error);
             });
         }
