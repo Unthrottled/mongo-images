@@ -34,4 +34,14 @@ body {
 .list-container{
   padding: 0.5em;
   background-color: rgba(255,255,255,0.25);
+  border-radius: 1em;
+}
+
+.project-container{
+  padding: 1em;
+  background-color: rgba(55,55,55,0.25);
+  border-radius: 1em;
+  margin-bottom: 1em;
+  border: 0.25em double rgba(20,20,20, 0.5);
+
 }
