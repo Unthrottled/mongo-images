@@ -10,8 +10,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var BackendAPI_service_1 = require("../../BackendAPI.service");
-var Object_util_1 = require("../../Object.util");
+var BackendAPI_service_1 = require("../../services/BackendAPI.service");
+var Object_util_1 = require("../../util/Object.util");
 var ImageUploadService = /** @class */ (function () {
     function ImageUploadService(backendAPIService) {
         this.backendAPIService = backendAPIService;

@@ -1,5 +1,5 @@
 import {Injectable} from "@angular/core";
-import {BackendAPIService} from "../../BackendAPI.service";
+import {BackendAPIService} from "../../services/BackendAPI.service";
 import {WindowRef} from "../../util/window";
 import {RemoteProjectFile} from "../model/RemoteProjectFile";
 import {Identifier} from "../model/Identifier.model";

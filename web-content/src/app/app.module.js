@@ -15,7 +15,7 @@ var app_component_1 = require("./app.component");
 var http_1 = require("@angular/common/http");
 var ProjectFile_module_1 = require("./projectFiles/ProjectFile.module");
 var window_1 = require("./util/window");
-var BackendAPI_service_1 = require("./BackendAPI.service");
+var BackendAPI_service_1 = require("./services/BackendAPI.service");
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }

@@ -10,7 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var BackendAPI_service_1 = require("../../BackendAPI.service");
+var BackendAPI_service_1 = require("../../services/BackendAPI.service");
 var window_1 = require("../../util/window");
 var RemoteProjectFile_1 = require("../model/RemoteProjectFile");
 var Identifier_model_1 = require("../model/Identifier.model");
