@@ -23,7 +23,6 @@ export class ProjectFileService implements OnInit {
     ngOnInit(): void {
         this.remoteProjectFileService.fetchAllRemoteProjects()
             .subscribe(remoteFile=> {
-                console.log(remoteFile);
                 this.addProjectToList(remoteFile);
             }, error=> {
                 console.log(error);
@@ -57,7 +56,10 @@ export class ProjectFileService implements OnInit {
                 .filter(b=>b)
                 .subscribe(result=>{
                     this.removeLocal(projectFile);
-                });
+                }, error=>{
+                    console.log("Oh snap");
+                    console.log(error)
+            });
         } else if (projectFile instanceof LocalProjectFile){
             this.removeLocal(projectFile);
         }

@@ -27,7 +27,6 @@ var ProjectFileService = /** @class */ (function () {
         var _this = this;
         this.remoteProjectFileService.fetchAllRemoteProjects()
             .subscribe(function (remoteFile) {
-            console.log(remoteFile);
             _this.addProjectToList(remoteFile);
         }, function (error) {
             console.log(error);
@@ -58,6 +57,9 @@ var ProjectFileService = /** @class */ (function () {
                 .filter(function (b) { return b; })
                 .subscribe(function (result) {
                 _this.removeLocal(projectFile);
+            }, function (error) {
+                console.log("Oh snap");
+                console.log(error);
             });
         }
         else if (projectFile instanceof LocalProjectFile_1.LocalProjectFile) {
