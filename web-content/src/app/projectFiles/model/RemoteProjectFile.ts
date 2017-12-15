@@ -47,7 +47,7 @@ export class RemoteProjectFile implements ProjectFile {
     }
 
     imageBinary(): Observable<any> {
-        return this._rawFile;
+        return this.replaySubject
     }
 
 

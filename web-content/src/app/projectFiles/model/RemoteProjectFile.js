@@ -45,7 +45,7 @@ var RemoteProjectFile = /** @class */ (function () {
         configurable: true
     });
     RemoteProjectFile.prototype.imageBinary = function () {
-        return this._rawFile;
+        return this.replaySubject;
     };
     return RemoteProjectFile;
 }());
