@@ -4,6 +4,11 @@ import {ReplaySubject} from "rxjs/ReplaySubject";
 import {Identifier} from "./Identifier.model";
 
 export class RemoteProjectFile implements ProjectFile {
+
+    /**
+     * Replaces the current remote project file with the new binary
+     * @param {File} file
+     */
     setNewFile(file: File): void {
         //todo: me?
     }
