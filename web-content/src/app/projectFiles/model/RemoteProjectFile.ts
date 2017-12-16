@@ -5,16 +5,16 @@ import {Identifier} from "./Identifier.model";
 
 export class RemoteProjectFile implements ProjectFile {
 
-    private replaySubject = new ReplaySubject<any>(1);
+    private imageBinaryReplay = new ReplaySubject<any>(1);
     private loaded = false;
     private _name: string;
 
     constructor(identifier: Identifier = new Identifier(),
                 remoteProjectFile: Observable<any> = Observable.empty()) {
 
-        remoteProjectFile.subscribe(blob => {
+        remoteProjectFile.subscribe(imageBinary => {
             this.loaded = true;
-            this.replaySubject.next(blob);
+            this.imageBinaryReplay.next(imageBinary);
         });
 
         this._identifier = identifier;
@@ -52,7 +52,7 @@ export class RemoteProjectFile implements ProjectFile {
     }
 
     imageBinary(): Observable<any> {
-        return this.replaySubject
+        return this.imageBinaryReplay
     }
 
 
