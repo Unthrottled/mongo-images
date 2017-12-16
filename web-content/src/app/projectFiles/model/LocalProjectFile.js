@@ -23,6 +23,12 @@ var LocalProjectFile = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
+    /**
+     * Sets current project file and also
+     * reads the file into binary so that it
+     * will be displayed.
+     * @param {File} file preferably a image file.
+     */
     LocalProjectFile.prototype.setNewFile = function (file) {
         this.selectedFile = Observable_1.Observable.of(file);
     };

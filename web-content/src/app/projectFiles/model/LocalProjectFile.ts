@@ -26,6 +26,12 @@ export class LocalProjectFile implements ProjectFile {
         this.readFileIntoBinary();
     }
 
+    /**
+     * Sets current project file and also
+     * reads the file into binary so that it
+     * will be displayed.
+     * @param {File} file preferably a image file.
+     */
     setNewFile(file: File): void {
         this.selectedFile = Observable.of(file);
     }
