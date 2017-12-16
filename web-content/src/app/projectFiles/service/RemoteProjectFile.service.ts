@@ -14,15 +14,7 @@ export class RemoteProjectFileService {
     public fetchRemoteProject(fileId: string): RemoteProjectFile {
         return new RemoteProjectFile(new Identifier(fileId),
             this.backendAPISevice.fetchImage(fileId)
-                .map(arrayBuffer => {
-                    let binary = '';
-                    let bytes = new Uint8Array(arrayBuffer);
-                    let len = bytes.byteLength;
-                    for (let i = 0; i < len; ++i) {
-                        binary += String.fromCharCode(bytes[i]);
-                    }
-                    return 'data:image/png;base64,' + this.windowRef.nativeWindow.btoa(binary);
-                }));
+                .map(arrayBuffer => this.convertToImageBinary(arrayBuffer)));
     }
 
     public fetchAllRemoteProjects(): Observable<RemoteProjectFile> {
@@ -35,5 +27,15 @@ export class RemoteProjectFileService {
 
     removeProject(projectToRemove: RemoteProjectFile): Observable<boolean> {
         return this.backendAPISevice.deleteImage(projectToRemove.getIdentifier());
+    }
+
+    private convertToImageBinary(arrayBuffer: any): any {
+        let binary = '';
+        let bytes = new Uint8Array(arrayBuffer);
+        let len = bytes.byteLength;
+        for (let i = 0; i < len; ++i) {
+            binary += String.fromCharCode(bytes[i]);
+        }
+        return 'data:image/png;base64,' + this.windowRef.nativeWindow.btoa(binary);
     }
 }

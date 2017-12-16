@@ -23,15 +23,7 @@ var RemoteProjectFileService = /** @class */ (function () {
     RemoteProjectFileService.prototype.fetchRemoteProject = function (fileId) {
         var _this = this;
         return new RemoteProjectFile_1.RemoteProjectFile(new Identifier_model_1.Identifier(fileId), this.backendAPISevice.fetchImage(fileId)
-            .map(function (arrayBuffer) {
-            var binary = '';
-            var bytes = new Uint8Array(arrayBuffer);
-            var len = bytes.byteLength;
-            for (var i = 0; i < len; ++i) {
-                binary += String.fromCharCode(bytes[i]);
-            }
-            return 'data:image/png;base64,' + _this.windowRef.nativeWindow.btoa(binary);
-        }));
+            .map(function (arrayBuffer) { return _this.convertToImageBinary(arrayBuffer); }));
     };
     RemoteProjectFileService.prototype.fetchAllRemoteProjects = function () {
         var _this = this;
@@ -43,6 +35,15 @@ var RemoteProjectFileService = /** @class */ (function () {
     };
     RemoteProjectFileService.prototype.removeProject = function (projectToRemove) {
         return this.backendAPISevice.deleteImage(projectToRemove.getIdentifier());
+    };
+    RemoteProjectFileService.prototype.convertToImageBinary = function (arrayBuffer) {
+        var binary = '';
+        var bytes = new Uint8Array(arrayBuffer);
+        var len = bytes.byteLength;
+        for (var i = 0; i < len; ++i) {
+            binary += String.fromCharCode(bytes[i]);
+        }
+        return 'data:image/png;base64,' + this.windowRef.nativeWindow.btoa(binary);
     };
     RemoteProjectFileService = __decorate([
         core_1.Injectable(),
