@@ -7,18 +7,16 @@ export class RemoteProjectFile implements ProjectFile {
 
     private replaySubject = new ReplaySubject<any>(1);
     private loaded = false;
-    private _rawFile: Observable<any>;
     private _name: string;
 
     constructor(identifier: Identifier = new Identifier(),
-                file: Observable<any> = Observable.empty()) {
+                remoteProjectFile: Observable<any> = Observable.empty()) {
 
-        file.subscribe(blob => {
+        remoteProjectFile.subscribe(blob => {
             this.loaded = true;
             this.replaySubject.next(blob);
         });
 
-        this._rawFile = file;
         this._identifier = identifier;
         this._name = this.identifier.id;
     }
