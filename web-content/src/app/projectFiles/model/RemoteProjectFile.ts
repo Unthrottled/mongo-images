@@ -46,8 +46,8 @@ export class RemoteProjectFile implements ProjectFile {
         //todo: me?
     }
 
-    getName(): string {
-        return this._name;
+    getIdentifier(): string {
+        return this._identifier.id;
     }
 
     /**

@@ -46,7 +46,7 @@ export class ProjectFileService implements OnInit {
 
     private addProjectToList(items: ProjectFile) {
         this._projectFiles.push(items);
-        this.projectFileIndices[items.getName()] = this._projectFiles.length - 1;
+        this.projectFileIndices[items.getIdentifier()] = this._projectFiles.length - 1;
     }
 
     removeProjectFile(projectFile: ProjectFile) {
@@ -74,13 +74,13 @@ export class ProjectFileService implements OnInit {
             .map(imageId=>this.remoteProjectFileService.fetchRemoteProject(imageId))
             .subscribe(remoteProject=> {
                 let index = this.removeProjectIndex(projectFile);
-                this.projectFileIndices[remoteProject.getName()] = index;
+                this.projectFileIndices[remoteProject.getIdentifier()] = index;
                 this.projectFiles[index] = remoteProject;
             });
     }
 
     private removeProjectIndex(projectFile: ProjectFile): number {
-        let name = projectFile.getName();
+        let name = projectFile.getIdentifier();
         let projectIndex = this.projectFileIndices[name];
         delete this.projectFileIndices[name];
         return projectIndex;

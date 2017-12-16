@@ -42,8 +42,8 @@ var RemoteProjectFile = /** @class */ (function () {
     RemoteProjectFile.prototype.setNewFile = function (file) {
         //todo: me?
     };
-    RemoteProjectFile.prototype.getName = function () {
-        return this._name;
+    RemoteProjectFile.prototype.getIdentifier = function () {
+        return this._identifier.id;
     };
     /**
      * Actual binary received from the backend service.

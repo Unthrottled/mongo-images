@@ -1,5 +1,6 @@
 import {Injectable} from "@angular/core";
 import {LocalProjectFile} from "../model/LocalProjectFile";
+import {Identifier} from "../model/Identifier.model";
 
 @Injectable()
 export class LocalProjectFileService {
@@ -8,7 +9,7 @@ export class LocalProjectFileService {
     constructor(){}
 
     public createLocalProject(): LocalProjectFile {
-        return new LocalProjectFile(++LocalProjectFileService.localProjectCount + '');
+        return new LocalProjectFile(new Identifier(++LocalProjectFileService.localProjectCount + ''));
     }
 
 }

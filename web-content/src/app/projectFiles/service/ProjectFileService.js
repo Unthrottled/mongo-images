@@ -48,7 +48,7 @@ var ProjectFileService = /** @class */ (function () {
     };
     ProjectFileService.prototype.addProjectToList = function (items) {
         this._projectFiles.push(items);
-        this.projectFileIndices[items.getName()] = this._projectFiles.length - 1;
+        this.projectFileIndices[items.getIdentifier()] = this._projectFiles.length - 1;
     };
     ProjectFileService.prototype.removeProjectFile = function (projectFile) {
         if (projectFile instanceof RemoteProjectFile_1.RemoteProjectFile) {
@@ -74,12 +74,12 @@ var ProjectFileService = /** @class */ (function () {
             .map(function (imageId) { return _this.remoteProjectFileService.fetchRemoteProject(imageId); })
             .subscribe(function (remoteProject) {
             var index = _this.removeProjectIndex(projectFile);
-            _this.projectFileIndices[remoteProject.getName()] = index;
+            _this.projectFileIndices[remoteProject.getIdentifier()] = index;
             _this.projectFiles[index] = remoteProject;
         });
     };
     ProjectFileService.prototype.removeProjectIndex = function (projectFile) {
-        var name = projectFile.getName();
+        var name = projectFile.getIdentifier();
         var projectIndex = this.projectFileIndices[name];
         delete this.projectFileIndices[name];
         return projectIndex;

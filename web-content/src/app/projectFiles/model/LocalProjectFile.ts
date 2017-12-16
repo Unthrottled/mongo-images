@@ -1,13 +1,14 @@
 import {ProjectFile} from "./ProjectFile.model";
 import {Observable} from "rxjs/Observable";
 import {ReplaySubject} from "rxjs/ReplaySubject";
+import {Identifier} from "./Identifier.model";
 
 export class LocalProjectFile implements ProjectFile {
     private imageBinaryRepeater = new ReplaySubject<MSBaseReader>(1);
-    private _name: string;
+    private _identifier: Identifier;
 
-    constructor(id: string) {
-        this._name = id;
+    constructor(id: Identifier) {
+        this._identifier = id;
     }
 
     private _selectedFile: Observable<File>;
@@ -36,8 +37,8 @@ export class LocalProjectFile implements ProjectFile {
         this.selectedFile = Observable.of(file);
     }
 
-    getName(): string {
-        return this._name;
+    getIdentifier(): string {
+        return this._identifier.id;
     }
 
     /**

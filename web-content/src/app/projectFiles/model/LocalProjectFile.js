@@ -5,7 +5,7 @@ var ReplaySubject_1 = require("rxjs/ReplaySubject");
 var LocalProjectFile = /** @class */ (function () {
     function LocalProjectFile(id) {
         this.imageBinaryRepeater = new ReplaySubject_1.ReplaySubject(1);
-        this._name = id;
+        this._identifier = id;
     }
     Object.defineProperty(LocalProjectFile.prototype, "selectedFile", {
         /**
@@ -32,8 +32,8 @@ var LocalProjectFile = /** @class */ (function () {
     LocalProjectFile.prototype.setNewFile = function (file) {
         this.selectedFile = Observable_1.Observable.of(file);
     };
-    LocalProjectFile.prototype.getName = function () {
-        return this._name;
+    LocalProjectFile.prototype.getIdentifier = function () {
+        return this._identifier.id;
     };
     /**
      * This is the raw image data binary that
