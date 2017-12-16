@@ -14,9 +14,6 @@ var LocalProjectFile = /** @class */ (function () {
     LocalProjectFile.prototype.getName = function () {
         return this._name;
     };
-    LocalProjectFile.prototype.isLoaded = function () {
-        return this._loaded;
-    };
     Object.defineProperty(LocalProjectFile.prototype, "selectedFile", {
         get: function () {
             return this._selectedFile;
@@ -29,7 +26,6 @@ var LocalProjectFile = /** @class */ (function () {
                 var fileReader = new FileReader();
                 fileReader.onload = function (event) {
                     _this.repeat.next(fileReader.result);
-                    _this._loaded = true;
                 };
                 fileReader.readAsDataURL(file);
             });

@@ -6,14 +6,12 @@ import {Identifier} from "./Identifier.model";
 export class RemoteProjectFile implements ProjectFile {
 
     private imageBinaryReplay = new ReplaySubject<any>(1);
-    private loaded = false;
     private _name: string;
 
     constructor(identifier: Identifier = new Identifier(),
                 remoteProjectFile: Observable<any> = Observable.empty()) {
 
         remoteProjectFile.subscribe(imageBinary => {
-            this.loaded = true;
             this.imageBinaryReplay.next(imageBinary);
         });
 
@@ -36,7 +34,11 @@ export class RemoteProjectFile implements ProjectFile {
     }
 
     /**
-     * Replaces the current remote project file with the new binary
+     * Replaces the current remote project file with the new binary.
+     *
+     * I am kind of torn at the moment because one you set the binary again
+     * it is no longer a remote project file and does not fit int this current
+     * abstraction.
      * @param {File} file
      */
     setNewFile(file: File): void {
@@ -45,10 +47,6 @@ export class RemoteProjectFile implements ProjectFile {
 
     getName(): string {
         return this._name;
-    }
-
-    isLoaded(): boolean {
-        return this.loaded;
     }
 
     imageBinary(): Observable<any> {

@@ -11,9 +11,6 @@ export class LocalProjectFile implements ProjectFile {
     }
     private _loaded: boolean = false;
 
-    isLoaded(): boolean {
-        return this._loaded;
-    }
     private repeat = new BehaviorSubject<MSBaseReader>(null);
 
     private _name: string;
@@ -36,7 +33,6 @@ export class LocalProjectFile implements ProjectFile {
                 let fileReader = new FileReader();
                 fileReader.onload = event => {
                     this.repeat.next(fileReader.result);
-                    this._loaded = true;
                 };
                 fileReader.readAsDataURL(file);
             });

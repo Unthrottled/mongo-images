@@ -9,9 +9,7 @@ var RemoteProjectFile = /** @class */ (function () {
         if (remoteProjectFile === void 0) { remoteProjectFile = Observable_1.Observable.empty(); }
         var _this = this;
         this.imageBinaryReplay = new ReplaySubject_1.ReplaySubject(1);
-        this.loaded = false;
         remoteProjectFile.subscribe(function (imageBinary) {
-            _this.loaded = true;
             _this.imageBinaryReplay.next(imageBinary);
         });
         this._identifier = identifier;
@@ -35,7 +33,11 @@ var RemoteProjectFile = /** @class */ (function () {
         configurable: true
     });
     /**
-     * Replaces the current remote project file with the new binary
+     * Replaces the current remote project file with the new binary.
+     *
+     * I am kind of torn at the moment because one you set the binary again
+     * it is no longer a remote project file and does not fit int this current
+     * abstraction.
      * @param {File} file
      */
     RemoteProjectFile.prototype.setNewFile = function (file) {
@@ -43,9 +45,6 @@ var RemoteProjectFile = /** @class */ (function () {
     };
     RemoteProjectFile.prototype.getName = function () {
         return this._name;
-    };
-    RemoteProjectFile.prototype.isLoaded = function () {
-        return this.loaded;
     };
     RemoteProjectFile.prototype.imageBinary = function () {
         return this.imageBinaryReplay;
