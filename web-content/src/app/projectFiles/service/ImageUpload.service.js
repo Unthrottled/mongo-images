@@ -22,7 +22,12 @@ var ImageUploadService = /** @class */ (function () {
             .filter(Object_util_1.isDefined)
             .map(function (reachFile) {
             var formData = new FormData();
-            formData.append('reach', reachFile);
+            /**
+             * The name that we append to the form has to correspond
+             * to the name of the parameter in the method signature
+             * in the REST controller.
+             */
+            formData.append('projectFile', reachFile);
             return formData;
         }).flatMap(function (formData) {
             return _this.backendAPIService.postImage(formData);

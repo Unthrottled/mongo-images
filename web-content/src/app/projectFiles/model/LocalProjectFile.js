@@ -10,7 +10,7 @@ var LocalProjectFile = /** @class */ (function () {
     Object.defineProperty(LocalProjectFile.prototype, "selectedFile", {
         /**
          * This is the expected data structure that will
-         * be transalated as a rest call to the backend.
+         * be translated as a rest call to the backend.
          * @returns {Observable<File>}
          */
         get: function () {

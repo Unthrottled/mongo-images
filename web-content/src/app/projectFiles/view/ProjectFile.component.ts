@@ -24,7 +24,7 @@ export class ProjectFileComponent {
         this._projectFile = value;
     }
 
-    //todo: remove dis
+    //todo: remove dis when you can change remote projects.
     get editMode(): boolean {
         return this.projectFile instanceof LocalProjectFile;
     }

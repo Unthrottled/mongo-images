@@ -15,7 +15,7 @@ export class LocalProjectFile implements ProjectFile {
 
     /**
      * This is the expected data structure that will
-     * be transalated as a rest call to the backend.
+     * be translated as a rest call to the backend.
      * @returns {Observable<File>}
      */
     get selectedFile(): Observable<File> {

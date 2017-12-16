@@ -27,7 +27,7 @@ var ProjectFileComponent = /** @class */ (function () {
         configurable: true
     });
     Object.defineProperty(ProjectFileComponent.prototype, "editMode", {
-        //todo: remove dis
+        //todo: remove dis when you can change remote projects.
         get: function () {
             return this.projectFile instanceof LocalProjectFile_1.LocalProjectFile;
         },
