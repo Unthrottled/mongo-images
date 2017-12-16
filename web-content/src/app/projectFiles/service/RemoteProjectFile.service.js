@@ -42,7 +42,7 @@ var RemoteProjectFileService = /** @class */ (function () {
             .map(function (id) { return _this.fetchRemoteProject(id); });
     };
     RemoteProjectFileService.prototype.removeProject = function (projectToRemove) {
-        return this.backendAPISevice.deleteImage(projectToRemove.id);
+        return this.backendAPISevice.deleteImage(projectToRemove.getName());
     };
     RemoteProjectFileService = __decorate([
         core_1.Injectable(),

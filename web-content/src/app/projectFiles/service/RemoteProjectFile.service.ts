@@ -34,6 +34,6 @@ export class RemoteProjectFileService {
     }
 
     removeProject(projectToRemove: RemoteProjectFile): Observable<boolean> {
-        return this.backendAPISevice.deleteImage(projectToRemove.id);
+        return this.backendAPISevice.deleteImage(projectToRemove.getName());
     }
 }

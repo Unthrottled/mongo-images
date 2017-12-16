@@ -7,6 +7,12 @@ export class RemoteProjectFile implements ProjectFile {
     private imageBinaryReplay = new ReplaySubject<any>(1);
     private _name: string;
 
+    /**
+     *
+     * @param {Identifier} identifier the unique identifier that will allow use of
+     *                      the backend rest api.
+     * @param {Observable<any>} remoteProjectFile project file from the backend
+     */
     constructor(identifier: Identifier = new Identifier(),
                 remoteProjectFile: Observable<any> = Observable.empty()) {
 
@@ -28,10 +34,6 @@ export class RemoteProjectFile implements ProjectFile {
         this._identifier = value;
     }
 
-    get id(): string {
-        return this.identifier.id;
-    }
-
     /**
      * Replaces the current remote project file with the new binary.
      *
@@ -48,6 +50,10 @@ export class RemoteProjectFile implements ProjectFile {
         return this._name;
     }
 
+    /**
+     * Actual binary received from the backend service.
+     * @returns {Observable<any>}
+     */
     imageBinary(): Observable<any> {
         return this.imageBinaryReplay
     }

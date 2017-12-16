@@ -4,6 +4,12 @@ var Observable_1 = require("rxjs/Observable");
 var ReplaySubject_1 = require("rxjs/ReplaySubject");
 var Identifier_model_1 = require("./Identifier.model");
 var RemoteProjectFile = /** @class */ (function () {
+    /**
+     *
+     * @param {Identifier} identifier the unique identifier that will allow use of
+     *                      the backend rest api.
+     * @param {Observable<any>} remoteProjectFile project file from the backend
+     */
     function RemoteProjectFile(identifier, remoteProjectFile) {
         if (identifier === void 0) { identifier = new Identifier_model_1.Identifier(); }
         if (remoteProjectFile === void 0) { remoteProjectFile = Observable_1.Observable.empty(); }
@@ -25,13 +31,6 @@ var RemoteProjectFile = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(RemoteProjectFile.prototype, "id", {
-        get: function () {
-            return this.identifier.id;
-        },
-        enumerable: true,
-        configurable: true
-    });
     /**
      * Replaces the current remote project file with the new binary.
      *
@@ -46,6 +45,10 @@ var RemoteProjectFile = /** @class */ (function () {
     RemoteProjectFile.prototype.getName = function () {
         return this._name;
     };
+    /**
+     * Actual binary received from the backend service.
+     * @returns {Observable<any>}
+     */
     RemoteProjectFile.prototype.imageBinary = function () {
         return this.imageBinaryReplay;
     };
