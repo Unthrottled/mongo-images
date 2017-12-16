@@ -1,28 +1,24 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var Observable_1 = require("rxjs/Observable");
-var BehaviorSubject_1 = require("rxjs/BehaviorSubject");
+var ReplaySubject_1 = require("rxjs/ReplaySubject");
 var LocalProjectFile = /** @class */ (function () {
     function LocalProjectFile(id) {
-        this._loaded = false;
-        this.repeat = new BehaviorSubject_1.BehaviorSubject(null);
+        this.imageBinaryRepeater = new ReplaySubject_1.ReplaySubject(1);
         this._name = id;
     }
     Object.defineProperty(LocalProjectFile.prototype, "selectedFile", {
+        /**
+         * This is the expected data structure that will
+         * be transalated as a rest call to the backend.
+         * @returns {Observable<File>}
+         */
         get: function () {
             return this._selectedFile;
         },
         set: function (value) {
-            var _this = this;
             this._selectedFile = value;
-            this._selectedFile
-                .subscribe(function (file) {
-                var fileReader = new FileReader();
-                fileReader.onload = function (event) {
-                    _this.repeat.next(fileReader.result);
-                };
-                fileReader.readAsDataURL(file);
-            });
+            this.readFileIntoBinary();
         },
         enumerable: true,
         configurable: true
@@ -33,8 +29,24 @@ var LocalProjectFile = /** @class */ (function () {
     LocalProjectFile.prototype.getName = function () {
         return this._name;
     };
+    /**
+     * This is the raw image data binary that
+     * will be rendered by the browser.
+     * @returns {Observable<MSBaseReader>}
+     */
     LocalProjectFile.prototype.imageBinary = function () {
-        return this.repeat;
+        return this.imageBinaryRepeater;
+    };
+    LocalProjectFile.prototype.readFileIntoBinary = function () {
+        var _this = this;
+        this._selectedFile
+            .subscribe(function (file) {
+            var fileReader = new FileReader();
+            fileReader.onload = function (event) {
+                _this.imageBinaryRepeater.next(fileReader.result);
+            };
+            fileReader.readAsDataURL(file);
+        });
     };
     return LocalProjectFile;
 }());

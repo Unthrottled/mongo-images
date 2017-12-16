@@ -1,10 +1,9 @@
 import {ProjectFile} from "./ProjectFile.model";
 import {Observable} from "rxjs/Observable";
-import {BehaviorSubject} from "rxjs/BehaviorSubject";
+import {ReplaySubject} from "rxjs/ReplaySubject";
 
 export class LocalProjectFile implements ProjectFile {
-    private _loaded: boolean = false;
-    private repeat = new BehaviorSubject<MSBaseReader>(null);
+    private imageBinaryRepeater = new ReplaySubject<MSBaseReader>(1);
     private _name: string;
 
     constructor(id: string) {
@@ -13,20 +12,18 @@ export class LocalProjectFile implements ProjectFile {
 
     private _selectedFile: Observable<File>;
 
+    /**
+     * This is the expected data structure that will
+     * be transalated as a rest call to the backend.
+     * @returns {Observable<File>}
+     */
     get selectedFile(): Observable<File> {
         return this._selectedFile;
     }
 
     set selectedFile(value: Observable<File>) {
         this._selectedFile = value;
-        this._selectedFile
-            .subscribe(file => {
-                let fileReader = new FileReader();
-                fileReader.onload = event => {
-                    this.repeat.next(fileReader.result);
-                };
-                fileReader.readAsDataURL(file);
-            });
+        this.readFileIntoBinary();
     }
 
     setNewFile(file: File): void {
@@ -37,7 +34,23 @@ export class LocalProjectFile implements ProjectFile {
         return this._name;
     }
 
+    /**
+     * This is the raw image data binary that
+     * will be rendered by the browser.
+     * @returns {Observable<MSBaseReader>}
+     */
     imageBinary(): Observable<MSBaseReader> {
-        return this.repeat;
+        return this.imageBinaryRepeater;
+    }
+
+    private readFileIntoBinary() {
+        this._selectedFile
+            .subscribe(file => {
+                let fileReader = new FileReader();
+                fileReader.onload = event => {
+                    this.imageBinaryRepeater.next(fileReader.result);
+                };
+                fileReader.readAsDataURL(file);
+            });
     }
 }
