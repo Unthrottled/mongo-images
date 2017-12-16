@@ -15,7 +15,12 @@ export class ImageUploadService {
             .filter(isDefined)
             .map(reachFile => {
                 let formData = new FormData();
-                formData.append('reach', reachFile);
+                /**
+                 * The name that we append to the form has to correspond
+                 * to the name of the parameter in the method signature
+                 * in the REST controller.
+                 */
+                formData.append('projectFile', reachFile);
                 return formData
             }).flatMap(formData =>
                 this.backendAPIService.postImage(formData))

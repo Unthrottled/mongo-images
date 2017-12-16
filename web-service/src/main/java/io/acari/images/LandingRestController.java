@@ -43,8 +43,8 @@ public class LandingRestController {
             MediaType.APPLICATION_FORM_URLENCODED_VALUE,
 
     })
-    public Mono<String> saveImage(@RequestPart MultipartFile reach) {
-        return imageHandler.saveImage(reach);
+    public Mono<String> saveImage(@RequestPart MultipartFile projectFile) {
+        return imageHandler.saveImage(projectFile);
     }
 
     @RequestMapping(value = "image/get/{id}", produces = {MediaType.IMAGE_PNG_VALUE,
