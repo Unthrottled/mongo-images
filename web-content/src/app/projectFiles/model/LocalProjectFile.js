@@ -8,12 +8,6 @@ var LocalProjectFile = /** @class */ (function () {
         this.repeat = new BehaviorSubject_1.BehaviorSubject(null);
         this._name = id;
     }
-    LocalProjectFile.prototype.setNewFile = function (file) {
-        this.selectedFile = Observable_1.Observable.of(file);
-    };
-    LocalProjectFile.prototype.getName = function () {
-        return this._name;
-    };
     Object.defineProperty(LocalProjectFile.prototype, "selectedFile", {
         get: function () {
             return this._selectedFile;
@@ -33,6 +27,12 @@ var LocalProjectFile = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
+    LocalProjectFile.prototype.setNewFile = function (file) {
+        this.selectedFile = Observable_1.Observable.of(file);
+    };
+    LocalProjectFile.prototype.getName = function () {
+        return this._name;
+    };
     LocalProjectFile.prototype.imageBinary = function () {
         return this.repeat;
     };
