@@ -5,16 +5,6 @@ import {Identifier} from "./Identifier.model";
 
 export class RemoteProjectFile implements ProjectFile {
 
-    /**
-     * Replaces the current remote project file with the new binary
-     * @param {File} file
-     */
-    setNewFile(file: File): void {
-        //todo: me?
-    }
-    getName(): string {
-        return this._name;
-    }
     private replaySubject = new ReplaySubject<any>(1);
     private loaded = false;
     private _rawFile: Observable<any>;
@@ -43,18 +33,29 @@ export class RemoteProjectFile implements ProjectFile {
         this._identifier = value;
     }
 
-    isLoaded(): boolean {
-        return this.loaded;
-    }
-
     get id(): string {
         return this.identifier.id;
+    }
+
+    /**
+     * Replaces the current remote project file with the new binary
+     * @param {File} file
+     */
+    setNewFile(file: File): void {
+        //todo: me?
+    }
+
+    getName(): string {
+        return this._name;
+    }
+
+    isLoaded(): boolean {
+        return this.loaded;
     }
 
     imageBinary(): Observable<any> {
         return this.replaySubject
     }
-
 
 
 }
