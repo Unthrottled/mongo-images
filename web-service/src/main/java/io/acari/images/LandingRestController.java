@@ -22,12 +22,6 @@ public class LandingRestController {
         this.imageHandler = imageHandler;
     }
 
-
-    @GetMapping("")
-    public Mono<String> fetchBase() {
-        return Mono.just("Hello Werld!\n");
-    }
-
     @PostMapping(value = "image/delete/{id}",
             consumes = MediaType.ALL_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
