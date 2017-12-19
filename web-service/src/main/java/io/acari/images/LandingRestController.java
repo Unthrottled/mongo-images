@@ -7,8 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.method.annotation.StreamingResponseBody;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+
+import java.io.OutputStream;
 
 @RestController
 @RequestMapping("/api")
@@ -44,8 +47,8 @@ public class LandingRestController {
     @RequestMapping(value = "image/get/{id}", produces = {MediaType.IMAGE_PNG_VALUE,
             MediaType.IMAGE_JPEG_VALUE,
             MediaType.IMAGE_GIF_VALUE})
-    public Mono<byte[]> fetchImage(@PathVariable("id") String id) {
-        return imageHandler.fetchImageBinary(id);
+    public void fetchImage(@PathVariable("id") String id, OutputStream outputStream) {
+        imageHandler.fetchImage(id, outputStream);
     }
 
     @GetMapping(value = "images", produces = MediaType.APPLICATION_JSON_VALUE)
