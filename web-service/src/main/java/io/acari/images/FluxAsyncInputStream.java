@@ -36,7 +36,6 @@ public class FluxAsyncInputStream implements AsyncInputStream {
    */
   @Override
   public Publisher<Integer> read(ByteBuffer dst) {
-    LOGGER.info("Reading!!!");
     return this.source.onNext()
         .map(dataBuffer -> {
           dst.put(dataBuffer.asByteBuffer());
