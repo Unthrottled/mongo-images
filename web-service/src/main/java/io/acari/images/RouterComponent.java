@@ -14,7 +14,7 @@ import java.util.stream.Stream;
 public class RouterComponent {
 
   @Bean
-  public RouterFunction<ServerResponse> landingRouterFunction(){
+  public RouterFunction<?> landingRouterFunction(){
     return RouterFunctions.route(RequestPredicates.GET("/butt"),
             request -> ServerResponse.ok().body(Mono.just("Hello Werld!\n"), String.class));
   }

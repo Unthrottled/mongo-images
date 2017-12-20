@@ -9,7 +9,6 @@ import org.springframework.web.reactive.config.EnableWebFlux;
 
 
 @EnableReactiveMongoRepositories
-@EnableWebFlux
 @SpringBootApplication(exclude = {MongoAutoConfiguration.class, MongoDataAutoConfiguration.class})
 public class LandingApplication {
 
