@@ -15,7 +15,6 @@ import java.io.OutputStream;
 //@RestController
 //@RequestMapping("/api")
 public class LandingRestController {
-//    private static final Logger LOGGER = LoggerFactory.getLogger(LandingRestController.class);
 //
 //    private final ImageHandler imageHandler;
 //
