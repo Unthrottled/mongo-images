@@ -2,6 +2,7 @@ package io.acari.images;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
@@ -16,11 +17,20 @@ import reactor.core.publisher.Mono;
 public class RouterComponent {
   private static final Logger LOGGER = LoggerFactory.getLogger(RouterComponent.class);
 
+  private final ImageHandler imageHandler;
+
+  @Autowired
+  public RouterComponent(ImageHandler imageHandler) {
+    this.imageHandler = imageHandler;
+  }
+
   @Bean
   public RouterFunction<?> landingRouterFunction() {
     return RouterFunctions.nest(RequestPredicates.path("/api"),
-        RouterFunctions.route(RequestPredicates.GET("/butt"),
-            request -> ServerResponse.ok().body(Mono.just("Hello Werld!\n"), String.class)))
+        RouterFunctions.route(RequestPredicates.GET("/images"),
+            request -> ServerResponse.ok().body(imageHandler.findAllNames(), Identifier.class))
+            .andRoute(RequestPredicates.GET("/butt"),
+                request -> ServerResponse.ok().body(Mono.just("Hello Werld!\n"), String.class)))
         .andOther(RouterFunctions.resources("/**", new ClassPathResource("static/")));
   }
 
