@@ -8,13 +8,13 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.function.Consumer;
 
-public class IterableFlux {
-  private final Queue<String> bufferedList = new LinkedList<>();
-  private final Queue<MonoSink<String>> callables = new LinkedList<>();
+public class IterableFlux<T> {
+  private final Queue<T> bufferedList = new LinkedList<>();
+  private final Queue<MonoSink<T>> callables = new LinkedList<>();
   private boolean complete = false;
 
-  public IterableFlux(Flux<String> source) {
-    Flux<String> messaged = Flux.create(stringFluxSink -> {
+  public IterableFlux(Flux<T> source) {
+    Flux<T> messaged = Flux.create(stringFluxSink -> {
       source.subscribe(a -> {
             if (callables.isEmpty()) {
               stringFluxSink.next(a);
@@ -30,11 +30,11 @@ public class IterableFlux {
 
   }
 
-  public Mono<String> onNext() {
+  public Mono<T> onNext() {
     if(complete && bufferedList.isEmpty()){
       return Mono.empty();
     } else if(bufferedList.isEmpty()){
-      final Consumer<MonoSink<String>> stringConsumer = callables::offer;
+      final Consumer<MonoSink<T>> stringConsumer = callables::offer;
       return Mono.create(stringConsumer);
     } else {
       return Mono.just(bufferedList.poll());
