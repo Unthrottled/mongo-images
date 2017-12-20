@@ -37,7 +37,7 @@ public class RouterComponent {
                 request -> ServerResponse.ok()
                     .contentType(MediaType.TEXT_PLAIN)
                     .body(Mono.just("Hello Werld!\n"), String.class))
-            .andRoute(RequestPredicates.POST("image/save}"),
+            .andRoute(RequestPredicates.POST("/image/save"),
                 request -> ServerResponse.ok()
             .body(imageHandler.saveImage(request.bodyToFlux(Part.class)), String.class))
     ).andOther(RouterFunctions.resources("/**", new ClassPathResource("static/")));
