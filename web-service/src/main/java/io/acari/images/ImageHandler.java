@@ -10,6 +10,7 @@ import org.bson.types.ObjectId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.codec.multipart.Part;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 import reactor.core.Disposable;
@@ -33,17 +34,13 @@ public class ImageHandler {
         this.gridFSBucket = gridFSBucket;
     }
 
-    public Mono<String> saveImage(MultipartFile multipartFile) {
-        String name = multipartFile.getOriginalFilename();
-        try {
-            return Mono.from(gridFSBucket.uploadFromStream(name,
-                    AsyncStreamHelper.toAsyncInputStream(multipartFile.getInputStream())))
-                    .map(ObjectId::toHexString);
-        } catch (IOException e) {
-            LOGGER.warn("Error saving image", e);
-            return Mono.error(new Throwable("Unable to save image!"));
-        }
+    public Flux<String> saveImage(Flux<Part> multipartFile) {
+      return multipartFile
+          .flatMap(part -> Flux.from(gridFSBucket.uploadFromStream(part.name(), FluxAsyncStreamConverter.convert(part.content())))
+                  .map(ObjectId::toHexString));
     }
+
+
 
     public Mono<byte[]> fetchImageBinary(String imageId) {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();

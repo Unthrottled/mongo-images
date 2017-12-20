@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.MediaType;
+import org.springframework.http.codec.multipart.Part;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.server.RequestPredicates;
 import org.springframework.web.reactive.function.server.RouterFunction;
@@ -35,8 +36,11 @@ public class RouterComponent {
             .andRoute(RequestPredicates.GET("/butt"),
                 request -> ServerResponse.ok()
                     .contentType(MediaType.TEXT_PLAIN)
-                    .body(Mono.just("Hello Werld!\n"), String.class)))
-        .andOther(RouterFunctions.resources("/**", new ClassPathResource("static/")));
+                    .body(Mono.just("Hello Werld!\n"), String.class))
+            .andRoute(RequestPredicates.POST("image/save}"),
+                request -> ServerResponse.ok()
+            .body(imageHandler.saveImage(request.bodyToFlux(Part.class)), String.class))
+    ).andOther(RouterFunctions.resources("/**", new ClassPathResource("static/")));
   }
 
 }

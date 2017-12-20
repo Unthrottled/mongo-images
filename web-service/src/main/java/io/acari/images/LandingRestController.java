@@ -48,9 +48,4 @@ public class LandingRestController {
 //    public void fetchImage(@PathVariable("id") String id, OutputStream outputStream) {
 //        imageHandler.fetchImage(id, outputStream);
 //    }
-//
-//    @GetMapping(value = "images", produces = MediaType.APPLICATION_JSON_VALUE)
-//    public Flux<Identifier> allProjects() {
-//        return imageHandler.findAllNames();
-//    }
 }
