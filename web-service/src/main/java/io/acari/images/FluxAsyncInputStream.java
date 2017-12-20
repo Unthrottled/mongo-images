@@ -3,6 +3,8 @@ package io.acari.images;
 import com.mongodb.reactivestreams.client.Success;
 import com.mongodb.reactivestreams.client.gridfs.AsyncInputStream;
 import org.reactivestreams.Publisher;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.core.io.buffer.DataBuffer;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -15,11 +17,13 @@ import java.nio.ByteBuffer;
  *
  */
 public class FluxAsyncInputStream implements AsyncInputStream {
+  private static final Logger LOGGER = LoggerFactory.getLogger(FluxAsyncInputStream.class);
 
-  private final Flux<DataBuffer> source;
+  private final IterableFlux<DataBuffer> source;
 
   public FluxAsyncInputStream(Flux<DataBuffer> source) {
-    this.source = source;
+    //sure would be nice if I had the producer :\
+    this.source = new IterableFlux<>(source);
 
   }
 
@@ -32,7 +36,8 @@ public class FluxAsyncInputStream implements AsyncInputStream {
    */
   @Override
   public Publisher<Integer> read(ByteBuffer dst) {
-    return this.source.next()
+    LOGGER.info("Reading!!!");
+    return this.source.onNext()
         .map(dataBuffer -> {
           dst.put(dataBuffer.asByteBuffer());
           return dataBuffer.readableByteCount() <= 0 ? -1 : dataBuffer.readableByteCount();
