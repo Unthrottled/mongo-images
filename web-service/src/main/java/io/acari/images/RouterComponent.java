@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.server.RequestPredicates;
 import org.springframework.web.reactive.function.server.RouterFunction;
@@ -28,9 +29,13 @@ public class RouterComponent {
   public RouterFunction<?> landingRouterFunction() {
     return RouterFunctions.nest(RequestPredicates.path("/api"),
         RouterFunctions.route(RequestPredicates.GET("/images"),
-            request -> ServerResponse.ok().body(imageHandler.findAllNames(), Identifier.class))
+            request -> ServerResponse.ok()
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(imageHandler.findAllNames(), Identifier.class))
             .andRoute(RequestPredicates.GET("/butt"),
-                request -> ServerResponse.ok().body(Mono.just("Hello Werld!\n"), String.class)))
+                request -> ServerResponse.ok()
+                    .contentType(MediaType.TEXT_PLAIN)
+                    .body(Mono.just("Hello Werld!\n"), String.class)))
         .andOther(RouterFunctions.resources("/**", new ClassPathResource("static/")));
   }
 
