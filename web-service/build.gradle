@@ -37,6 +37,8 @@ dependencies {
 	compile('org.springframework.cloud:spring-cloud-starter')
 	compile('org.springframework.boot:spring-boot-starter-data-mongodb-reactive')
 	compile('org.springframework.boot:spring-boot-starter-hateoas')
+	compile('org.springframework.boot:spring-boot-starter-actuator')
+	compile("org.springframework.boot:spring-boot-starter-web")
 	compile('com.google.guava:guava:23.4-jre')
 	compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.25'
 	compile('org.springframework.boot:spring-boot-starter-webflux')

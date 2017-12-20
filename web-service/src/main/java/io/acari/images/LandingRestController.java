@@ -13,14 +13,14 @@ import reactor.core.publisher.Mono;
 
 import java.io.OutputStream;
 
-@RestController
-@RequestMapping("/api")
+//@RestController
+//@RequestMapping("/api")
 public class LandingRestController {
     private static final Logger LOGGER = LoggerFactory.getLogger(LandingRestController.class);
 
     private final ImageHandler imageHandler;
 
-    @Autowired
+//    @Autowired
     public LandingRestController(ImageHandler imageHandler) {
         this.imageHandler = imageHandler;
     }
