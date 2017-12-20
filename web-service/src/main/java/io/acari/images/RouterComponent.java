@@ -3,6 +3,7 @@ package io.acari.images;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.server.RequestPredicates;
 import org.springframework.web.reactive.function.server.RouterFunction;
@@ -19,6 +20,8 @@ public class RouterComponent {
   public RouterFunction<?> landingRouterFunction() {
     return RouterFunctions.nest(RequestPredicates.path("/api"),
         RouterFunctions.route(RequestPredicates.GET("/butt"),
-            request -> ServerResponse.ok().body(Mono.just("Hello Werld!\n"), String.class)));
+            request -> ServerResponse.ok().body(Mono.just("Hello Werld!\n"), String.class)))
+        .andOther(RouterFunctions.resources("/**", new ClassPathResource("static/")));
   }
+
 }
