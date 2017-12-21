@@ -42,10 +42,4 @@ public class LandingRestController {
 //        return imageHandler.saveImage(projectFile);
 //    }
 //
-//    @RequestMapping(value = "image/get/{id}", produces = {MediaType.IMAGE_PNG_VALUE,
-//            MediaType.IMAGE_JPEG_VALUE,
-//            MediaType.IMAGE_GIF_VALUE})
-//    public void fetchImage(@PathVariable("id") String id, OutputStream outputStream) {
-//        imageHandler.fetchImage(id, outputStream);
-//    }
 }
