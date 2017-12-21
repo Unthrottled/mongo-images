@@ -46,7 +46,22 @@ public class NonBlockingIterableFlux<T> implements Disposable {
   }
 
   /**
-   * @return
+   * Think of this like a "Take a Number" queue.
+   * When you {@code takeNext()} you are essentially asking
+   * to be served when your number is called.
+   * The order at which this is called determines what
+   * item you get in the flux, ie the first call get the first element
+   * and the second call gets the second item in the flux.
+   * <p>
+   * Some people ahead of you may leave, that's okay,
+   * because you will get their item.
+   * <p>
+   * If you take a number that cannot be served before
+   * closing time (the flux runs out),
+   * you will be notified by an empty return.
+   *
+   * @return An item in the flux based off of the current queue of callbacks.
+   * or nothing if the flux has run out of items.
    */
   public Mono<T> takeNext() {
     if (complete && itemBuffer.isEmpty()) {
