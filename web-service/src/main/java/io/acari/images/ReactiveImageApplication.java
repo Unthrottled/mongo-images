@@ -9,9 +9,9 @@ import org.springframework.data.mongodb.repository.config.EnableReactiveMongoRep
 
 @EnableReactiveMongoRepositories
 @SpringBootApplication(exclude = {MongoAutoConfiguration.class, MongoDataAutoConfiguration.class})
-public class LandingApplication {
+public class ReactiveImageApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(LandingApplication.class, args);
+        SpringApplication.run(ReactiveImageApplication.class, args);
     }
 }
