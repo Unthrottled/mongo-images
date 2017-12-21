@@ -37,6 +37,9 @@ public class NonBlockingIterableFlux<T> implements Disposable {
     subscription = messaged.subscribe();
   }
 
+  /**
+   * Cancel or dispose the underlying task or resource.
+   */
   public void dispose() {
     subscription.dispose();
     callables.forEach(MonoSinkHelper::success);
