@@ -3,6 +3,7 @@ package io.acari.images.handler;
 import com.mongodb.client.gridfs.model.GridFSFile;
 import com.mongodb.reactivestreams.client.gridfs.GridFSBucket;
 import com.mongodb.reactivestreams.client.gridfs.GridFSDownloadStream;
+import io.acari.images.flux.DownloadStreamToFluxFactory;
 import io.acari.images.flux.FluxAsyncStreamConverter;
 import io.acari.images.model.Identifier;
 import org.bson.BsonObjectId;
@@ -14,16 +15,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.codec.multipart.Part;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Flux;
-import reactor.core.publisher.FluxSink;
 import reactor.core.publisher.Mono;
 
-import java.nio.ByteBuffer;
 import java.util.Objects;
 
 @Component
 public class ImageHandler {
   private static final Logger LOGGER = LoggerFactory.getLogger(ImageHandler.class);
   private final GridFSBucket gridFSBucket;
+  private final DownloadStreamToFluxFactory downloadStreamToFluxFactory = new DownloadStreamToFluxFactory();
 
   @Autowired
   public ImageHandler(GridFSBucket gridFSBucket) {
@@ -32,18 +32,18 @@ public class ImageHandler {
 
   public Flux<String> saveImage(Flux<Part> multipartFile) {
     return multipartFile
-        .flatMap(part -> Flux.from(gridFSBucket.uploadFromStream(part.name(), FluxAsyncStreamConverter.convert(part.content())))
-            .map(ObjectId::toHexString));
+        .flatMap(part -> Mono.from(gridFSBucket.uploadFromStream(part.name(),
+            FluxAsyncStreamConverter.convert(part.content()))))
+        .map(ObjectId::toHexString);
   }
 
   public Flux<byte[]> fetchImage(String imageId) {
-    GridFSDownloadStream gridFSDownloadStream = gridFSBucket.openDownloadStream(new ObjectId(imageId));
-    return Flux.create(synchronousSink -> readStream(gridFSDownloadStream, synchronousSink));
-
+    return downloadStreamToFluxFactory
+        .convert(gridFSBucket.openDownloadStream(getId(imageId)));
   }
 
   public Mono<Boolean> removeImage(String imageId) {
-    return Mono.from(gridFSBucket.delete(new ObjectId(imageId)))
+    return Mono.from(gridFSBucket.delete(getId(imageId)))
         .map(Objects::nonNull)
         .onErrorReturn(false);
   }
@@ -58,24 +58,7 @@ public class ImageHandler {
 
   }
 
-  private void readStream(GridFSDownloadStream gridFSDownloadStream, FluxSink<byte[]> synchronousSink) {
-    ByteBuffer allocate = ByteBuffer.allocate(4096);
-    Mono.from(gridFSDownloadStream.read(allocate))
-        .subscribe(bytesRead -> {
-          if (finishedReading(bytesRead)) {
-            Mono.from(gridFSDownloadStream.close())
-                .subscribe(a -> {}, throwable -> {}, synchronousSink::complete);
-          } else {
-            synchronousSink.next(allocate.array());
-            readStream(gridFSDownloadStream, synchronousSink);
-          }
-        }, throwable -> {
-          LOGGER.warn("Ohhh snap!", throwable);
-          synchronousSink.complete();
-        });
-  }
-
-  private boolean finishedReading(Integer read) {
-    return read < 0;
+  private ObjectId getId(String imageId) {
+    return new ObjectId(imageId);
   }
 }
