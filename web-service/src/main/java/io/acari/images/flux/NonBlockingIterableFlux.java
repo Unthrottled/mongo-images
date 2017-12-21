@@ -17,11 +17,20 @@ public class NonBlockingIterableFlux<T> {
   private final Disposable subscription;
   private boolean complete = false;
 
+  /**
+   * Stateful class, which allows for non-blocking
+   * sequential access to items in provided flux stream.
+   * <p>
+   * It is a hot observable that buffers when it has
+   * backpressure.
+   *
+   * @param source
+   */
   public NonBlockingIterableFlux(Flux<T> source) {
     Flux<T> messaged = Flux.create(stringFluxSink ->
         source.subscribe(sourceItem -> emitNextItem(stringFluxSink, sourceItem),
-        this::accept,
-        this::run));
+            this::accept,
+            this::run));
     subscription = messaged.subscribe();
   }
 
@@ -30,7 +39,10 @@ public class NonBlockingIterableFlux<T> {
     callables.forEach(MonoSinkHelper::success);
   }
 
-  public Mono<T> onNext() {
+  /**
+   * @return
+   */
+  public Mono<T> takeNext() {
     if (complete && itemBuffer.isEmpty()) {
       return Mono.empty();
     } else if (itemBuffer.isEmpty()) {
