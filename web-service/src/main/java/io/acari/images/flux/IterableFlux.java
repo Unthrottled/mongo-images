@@ -1,7 +1,9 @@
 package io.acari.images.flux;
 
+import io.acari.images.mono.MonoSinkHelper;
 import reactor.core.Disposable;
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.FluxSink;
 import reactor.core.publisher.Mono;
 import reactor.core.publisher.MonoSink;
 
@@ -10,52 +12,68 @@ import java.util.Queue;
 import java.util.function.Consumer;
 
 public class IterableFlux<T> {
-  private final Queue<T> bufferedList = new LinkedList<>();
-  private final Queue<MonoSink<T>> callables = new LinkedList<>();
-  private boolean complete = false;
+  private final Queue<T> itemBuffer = new LinkedList<>();
+  private final Queue<MonoSinkHelper<T>> callables = new LinkedList<>();
   private final Disposable disposable;
+  private boolean complete = false;
 
   public IterableFlux(Flux<T> source) {
     Flux<T> messaged = Flux.create(stringFluxSink -> {
-      source.subscribe(a -> {
-            if (callables.isEmpty()) {
-              stringFluxSink.next(a);
-              bufferedList.offer(a);
-            } else {
-              //todo: if unsubscribed, give to next.
-              callables.poll().success(a);
-            }
-          },
+      source.subscribe(a -> emitNextItem(stringFluxSink, a),
           this::accept,
           this::run);
     });
     disposable = messaged.subscribe();
   }
 
+  public void dispose() {
+    disposable.dispose();
+    callables.forEach(MonoSinkHelper::success);
+  }
 
   public Mono<T> onNext() {
-    if(complete && bufferedList.isEmpty()){
+    if (complete && itemBuffer.isEmpty()) {
       return Mono.empty();
-    } else if(bufferedList.isEmpty()){
-      final Consumer<MonoSink<T>> stringConsumer = callables::offer;
+    } else if (itemBuffer.isEmpty()) {
+      final Consumer<MonoSink<T>> stringConsumer = tMonoSink -> {
+        callables.offer(new MonoSinkHelper<>(tMonoSink));
+      };
       return Mono.create(stringConsumer);
     } else {
-      return Mono.just(bufferedList.poll());
+      return Mono.just(itemBuffer.poll());
     }
   }
+
+  private void emitNextItem(FluxSink<T> stringFluxSink, T a) {
+    if (callables.isEmpty()) {
+      bufferItem(stringFluxSink, a);
+    } else {
+      emitToNextSubscribedCaller(stringFluxSink, a);
+    }
+  }
+
+  private void bufferItem(FluxSink<T> stringFluxSink, T a) {
+    stringFluxSink.next(a);
+    itemBuffer.offer(a);
+  }
+
+  private void emitToNextSubscribedCaller(FluxSink<T> stringFluxSink, T a) {
+    MonoSinkHelper<T> poll = callables.poll();
+    if (poll.isDisposed()) {
+      emitNextItem(stringFluxSink, a);
+    } else {
+      poll.success(a);
+    }
+  }
+
 
   private void accept(Throwable b) {
     callables.forEach(a -> a.error(b));
   }
 
   private void run() {
-    callables.forEach(MonoSink::success);
+    callables.forEach(MonoSinkHelper::success);
     complete = true;
-  }
-
-  public void dispose(){
-    disposable.dispose();
-    callables.forEach(MonoSink::success);
   }
 
 }
