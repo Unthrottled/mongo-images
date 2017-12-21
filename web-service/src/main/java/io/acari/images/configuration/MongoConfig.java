@@ -16,6 +16,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 import org.springframework.data.mongodb.config.AbstractReactiveMongoConfiguration;
+import org.springframework.lang.NonNull;
 
 import javax.annotation.PreDestroy;
 
@@ -32,6 +33,7 @@ public class MongoConfig extends AbstractReactiveMongoConfiguration {
   private final NioEventLoopGroup eventLoopGroup = new NioEventLoopGroup();
 
   @Bean
+  @NonNull
   @Override
   public MongoClient reactiveMongoClient() {
     ConnectionString connectionString = new ConnectionString(environment.getProperty("acari.mongo.connectionString", "localhost:27017"));
@@ -45,6 +47,7 @@ public class MongoConfig extends AbstractReactiveMongoConfiguration {
             .build());
   }
 
+  @NonNull
   @Override
   protected String getDatabaseName() {
     return environment.getProperty("acari.mongo.landingDatabase", "images");

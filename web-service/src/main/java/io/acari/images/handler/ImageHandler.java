@@ -61,8 +61,8 @@ public class ImageHandler {
   private void readStream(GridFSDownloadStream gridFSDownloadStream, FluxSink<byte[]> synchronousSink) {
     ByteBuffer allocate = ByteBuffer.allocate(4096);
     Mono.from(gridFSDownloadStream.read(allocate))
-        .subscribe(read -> {
-          if (finishedReading(read)) {
+        .subscribe(bytesRead -> {
+          if (finishedReading(bytesRead)) {
             Mono.from(gridFSDownloadStream.close())
                 .subscribe(a -> {}, throwable -> {}, synchronousSink::complete);
           } else {
