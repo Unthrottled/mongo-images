@@ -19,10 +19,10 @@ import java.nio.ByteBuffer;
 public class FluxAsyncInputStream implements AsyncInputStream {
   private static final Logger LOGGER = LoggerFactory.getLogger(FluxAsyncInputStream.class);
 
-  private final IterableFlux<DataBuffer> source;
+  private final NonBlockingIterableFlux<DataBuffer> source;
 
   public FluxAsyncInputStream(Flux<DataBuffer> source) {
-    this.source = new IterableFlux<>(source);
+    this.source = new NonBlockingIterableFlux<>(source);
 
   }
 

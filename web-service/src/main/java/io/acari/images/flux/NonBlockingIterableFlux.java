@@ -11,22 +11,22 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.function.Consumer;
 
-public class IterableFlux<T> {
+public class NonBlockingIterableFlux<T> {
   private final Queue<T> itemBuffer = new LinkedList<>();
   private final Queue<MonoSinkHelper<T>> callables = new LinkedList<>();
-  private final Disposable disposable;
+  private final Disposable subscription;
   private boolean complete = false;
 
-  public IterableFlux(Flux<T> source) {
+  public NonBlockingIterableFlux(Flux<T> source) {
     Flux<T> messaged = Flux.create(stringFluxSink ->
         source.subscribe(sourceItem -> emitNextItem(stringFluxSink, sourceItem),
         this::accept,
         this::run));
-    disposable = messaged.subscribe();
+    subscription = messaged.subscribe();
   }
 
   public void dispose() {
-    disposable.dispose();
+    subscription.dispose();
     callables.forEach(MonoSinkHelper::success);
   }
 
