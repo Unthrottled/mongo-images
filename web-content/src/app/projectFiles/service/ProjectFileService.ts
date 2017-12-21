@@ -10,7 +10,7 @@ import {RemoteProjectFileService} from "./RemoteProjectFile.service";
 
 @Injectable()
 export class ProjectFileService implements OnInit {
-    private projectFileIndices: Map<String, ProjectFile> = new Map();
+    private projectFileMap: Map<String, ProjectFile> = new Map<String, ProjectFile>();
 
 
     constructor(private localProjectFileService: LocalProjectFileService,
@@ -30,7 +30,7 @@ export class ProjectFileService implements OnInit {
 
 
     get projectFiles(): Iterable<ProjectFile> {
-        return this.projectFileIndices.values();
+        return this.projectFileMap.values();
     }
 
     addProject() {
@@ -39,7 +39,7 @@ export class ProjectFileService implements OnInit {
     }
 
     private addProjectToList(project: ProjectFile) {
-        this.projectFileIndices.set(project.getIdentifier(), project)
+        this.projectFileMap.set(project.getIdentifier(), project)
     }
 
     removeProjectFile(projectFile: ProjectFile) {
@@ -58,7 +58,7 @@ export class ProjectFileService implements OnInit {
     }
 
     private removeProjectFileFromList(projectFile: ProjectFile) {
-        this.projectFileIndices.delete(projectFile.getIdentifier());
+        this.projectFileMap.delete(projectFile.getIdentifier());
 
     }
 
@@ -67,7 +67,7 @@ export class ProjectFileService implements OnInit {
             .map(imageId=>this.remoteProjectFileService.fetchRemoteProject(imageId))
             .subscribe(remoteProject=> {
                 this.removeProjectFileFromList(projectFile);
-                this.projectFileIndices.set(remoteProject.getIdentifier(), remoteProject);
+                this.projectFileMap.set(remoteProject.getIdentifier(), remoteProject);
             });
     }
 }

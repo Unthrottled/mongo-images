@@ -20,7 +20,7 @@ var ProjectFileService = /** @class */ (function () {
         this.localProjectFileService = localProjectFileService;
         this.remoteProjectFileService = remoteProjectFileService;
         this.imageUploadService = imageUploadService;
-        this.projectFileIndices = new Map();
+        this.projectFileMap = new Map();
     }
     ProjectFileService.prototype.ngOnInit = function () {
         var _this = this;
@@ -33,7 +33,7 @@ var ProjectFileService = /** @class */ (function () {
     };
     Object.defineProperty(ProjectFileService.prototype, "projectFiles", {
         get: function () {
-            return this.projectFileIndices.values();
+            return this.projectFileMap.values();
         },
         enumerable: true,
         configurable: true
@@ -43,7 +43,7 @@ var ProjectFileService = /** @class */ (function () {
         this.addProjectToList(items);
     };
     ProjectFileService.prototype.addProjectToList = function (project) {
-        this.projectFileIndices.set(project.getIdentifier(), project);
+        this.projectFileMap.set(project.getIdentifier(), project);
     };
     ProjectFileService.prototype.removeProjectFile = function (projectFile) {
         if (projectFile instanceof RemoteProjectFile_1.RemoteProjectFile) {
@@ -51,26 +51,25 @@ var ProjectFileService = /** @class */ (function () {
             this.remoteProjectFileService.removeProject(projectFile)
                 .filter(function (b) { return b; })
                 .subscribe(function (result) {
-                //todo: dis borked when you do not delete the tail image.
-                self_1.removeLocal(projectFile);
+                self_1.removeProjectFileFromList(projectFile);
             }, function (error) {
                 console.log(error);
             });
         }
         else if (projectFile instanceof LocalProjectFile_1.LocalProjectFile) {
-            this.removeLocal(projectFile);
+            this.removeProjectFileFromList(projectFile);
         }
     };
-    ProjectFileService.prototype.removeLocal = function (projectFile) {
-        this.projectFileIndices.delete(projectFile.getIdentifier());
+    ProjectFileService.prototype.removeProjectFileFromList = function (projectFile) {
+        this.projectFileMap.delete(projectFile.getIdentifier());
     };
     ProjectFileService.prototype.uploadFile = function (projectFile) {
         var _this = this;
         this.imageUploadService.uploadImage(projectFile.selectedFile)
             .map(function (imageId) { return _this.remoteProjectFileService.fetchRemoteProject(imageId); })
             .subscribe(function (remoteProject) {
-            _this.removeLocal(projectFile);
-            _this.projectFileIndices.set(remoteProject.getIdentifier(), remoteProject);
+            _this.removeProjectFileFromList(projectFile);
+            _this.projectFileMap.set(remoteProject.getIdentifier(), remoteProject);
         });
     };
     ProjectFileService = __decorate([
