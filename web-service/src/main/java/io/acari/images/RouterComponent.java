@@ -5,7 +5,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.buffer.DataBuffer;
 import org.springframework.http.MediaType;
 import org.springframework.http.codec.multipart.Part;
 import org.springframework.stereotype.Component;
@@ -43,7 +42,10 @@ public class RouterComponent {
                                         .body(imageHandler.saveImage(request.bodyToFlux(Part.class)), String.class))
                         .andRoute(RequestPredicates.GET("/image/get/{id}"),
                                 request -> ServerResponse.ok()
-                        .body(imageHandler.fetchImage(request.pathVariable("id")), byte[].class))
+                                        .body(imageHandler.fetchImage(request.pathVariable("id")), byte[].class))
+                        .andRoute(RequestPredicates.DELETE("/image/delete/{id}"),
+                                request -> ServerResponse.ok()
+                                        .body(imageHandler.removeImage(request.pathVariable("id")), Boolean.class))
 
         ).andOther(RouterFunctions.resources("/**", new ClassPathResource("static/")));
     }

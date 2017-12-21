@@ -29,17 +29,4 @@ public class LandingRestController {
 //    public Mono<Boolean> deleteImage(@PathVariable("id") String id) {
 //        return imageHandler.removeImage(id);
 //    }
-//
-//    @PostMapping(value = "image/save", consumes = {
-//            MediaType.MULTIPART_FORM_DATA_VALUE,
-//            MediaType.IMAGE_PNG_VALUE,
-//            MediaType.IMAGE_JPEG_VALUE,
-//            MediaType.IMAGE_GIF_VALUE,
-//            MediaType.APPLICATION_FORM_URLENCODED_VALUE,
-//
-//    })
-//    public Mono<String> saveImage(@RequestPart MultipartFile projectFile) {
-//        return imageHandler.saveImage(projectFile);
-//    }
-//
 }
