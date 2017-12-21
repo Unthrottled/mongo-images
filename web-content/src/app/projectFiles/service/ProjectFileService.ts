@@ -10,7 +10,7 @@ import {RemoteProjectFileService} from "./RemoteProjectFile.service";
 
 @Injectable()
 export class ProjectFileService implements OnInit {
-    private projectFileIndices: IHash<number> = {};
+    private projectFileIndices: Map<String, ProjectFile> = new Map();
 
 
     constructor(private localProjectFileService: LocalProjectFileService,
@@ -28,15 +28,9 @@ export class ProjectFileService implements OnInit {
             })
     }
 
-    private _projectFiles: ProjectFile[] = [];
 
-
-    get projectFiles(): ProjectFile[] {
-        return this._projectFiles;
-    }
-
-    set projectFiles(value: ProjectFile[]) {
-        this._projectFiles = value;
+    get projectFiles(): Iterable<ProjectFile> {
+        return this.projectFileIndices.values();
     }
 
     addProject() {
@@ -44,9 +38,8 @@ export class ProjectFileService implements OnInit {
         this.addProjectToList(items);
     }
 
-    private addProjectToList(items: ProjectFile) {
-        this._projectFiles.push(items);
-        this.projectFileIndices[items.getIdentifier()] = this._projectFiles.length - 1;
+    private addProjectToList(project: ProjectFile) {
+        this.projectFileIndices.set(project.getIdentifier(), project)
     }
 
     removeProjectFile(projectFile: ProjectFile) {
@@ -55,18 +48,17 @@ export class ProjectFileService implements OnInit {
             this.remoteProjectFileService.removeProject(<RemoteProjectFile>projectFile)
                 .filter(b=>b)
                 .subscribe(result=>{
-                    //todo: dis borked when you do not delete the tail image.
-                    self.removeLocal(projectFile);
+                    self.removeProjectFileFromList(projectFile);
                 }, error=>{
                     console.log(error)
             });
         } else if (projectFile instanceof LocalProjectFile){
-            this.removeLocal(projectFile);
+            this.removeProjectFileFromList(projectFile);
         }
     }
 
-    private removeLocal(projectFile: ProjectFile) {
-        this.projectFiles.splice(this.removeProjectIndex(projectFile), 1);
+    private removeProjectFileFromList(projectFile: ProjectFile) {
+        this.projectFileIndices.delete(projectFile.getIdentifier());
 
     }
 
@@ -74,16 +66,8 @@ export class ProjectFileService implements OnInit {
         this.imageUploadService.uploadImage(projectFile.selectedFile)
             .map(imageId=>this.remoteProjectFileService.fetchRemoteProject(imageId))
             .subscribe(remoteProject=> {
-                let index = this.removeProjectIndex(projectFile);
-                this.projectFileIndices[remoteProject.getIdentifier()] = index;
-                this.projectFiles[index] = remoteProject;
+                this.removeProjectFileFromList(projectFile);
+                this.projectFileIndices.set(remoteProject.getIdentifier(), remoteProject);
             });
-    }
-
-    private removeProjectIndex(projectFile: ProjectFile): number {
-        let name = projectFile.getIdentifier();
-        let projectIndex = this.projectFileIndices[name];
-        delete this.projectFileIndices[name];
-        return projectIndex;
     }
 }

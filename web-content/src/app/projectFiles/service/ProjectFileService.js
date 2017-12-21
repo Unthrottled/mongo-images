@@ -20,8 +20,7 @@ var ProjectFileService = /** @class */ (function () {
         this.localProjectFileService = localProjectFileService;
         this.remoteProjectFileService = remoteProjectFileService;
         this.imageUploadService = imageUploadService;
-        this.projectFileIndices = {};
-        this._projectFiles = [];
+        this.projectFileIndices = new Map();
     }
     ProjectFileService.prototype.ngOnInit = function () {
         var _this = this;
@@ -34,10 +33,7 @@ var ProjectFileService = /** @class */ (function () {
     };
     Object.defineProperty(ProjectFileService.prototype, "projectFiles", {
         get: function () {
-            return this._projectFiles;
-        },
-        set: function (value) {
-            this._projectFiles = value;
+            return this.projectFileIndices.values();
         },
         enumerable: true,
         configurable: true
@@ -46,9 +42,8 @@ var ProjectFileService = /** @class */ (function () {
         var items = this.localProjectFileService.createLocalProject();
         this.addProjectToList(items);
     };
-    ProjectFileService.prototype.addProjectToList = function (items) {
-        this._projectFiles.push(items);
-        this.projectFileIndices[items.getIdentifier()] = this._projectFiles.length - 1;
+    ProjectFileService.prototype.addProjectToList = function (project) {
+        this.projectFileIndices.set(project.getIdentifier(), project);
     };
     ProjectFileService.prototype.removeProjectFile = function (projectFile) {
         if (projectFile instanceof RemoteProjectFile_1.RemoteProjectFile) {
@@ -56,6 +51,7 @@ var ProjectFileService = /** @class */ (function () {
             this.remoteProjectFileService.removeProject(projectFile)
                 .filter(function (b) { return b; })
                 .subscribe(function (result) {
+                //todo: dis borked when you do not delete the tail image.
                 self_1.removeLocal(projectFile);
             }, function (error) {
                 console.log(error);
@@ -66,23 +62,16 @@ var ProjectFileService = /** @class */ (function () {
         }
     };
     ProjectFileService.prototype.removeLocal = function (projectFile) {
-        this.projectFiles.splice(this.removeProjectIndex(projectFile), 1);
+        this.projectFileIndices.delete(projectFile.getIdentifier());
     };
     ProjectFileService.prototype.uploadFile = function (projectFile) {
         var _this = this;
         this.imageUploadService.uploadImage(projectFile.selectedFile)
             .map(function (imageId) { return _this.remoteProjectFileService.fetchRemoteProject(imageId); })
             .subscribe(function (remoteProject) {
-            var index = _this.removeProjectIndex(projectFile);
-            _this.projectFileIndices[remoteProject.getIdentifier()] = index;
-            _this.projectFiles[index] = remoteProject;
+            _this.removeLocal(projectFile);
+            _this.projectFileIndices.set(remoteProject.getIdentifier(), remoteProject);
         });
-    };
-    ProjectFileService.prototype.removeProjectIndex = function (projectFile) {
-        var name = projectFile.getIdentifier();
-        var projectIndex = this.projectFileIndices[name];
-        delete this.projectFileIndices[name];
-        return projectIndex;
     };
     ProjectFileService = __decorate([
         core_1.Injectable(),

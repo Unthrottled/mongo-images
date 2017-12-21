@@ -13,7 +13,7 @@ export class ProjectFilesComponent implements OnInit {
 
     constructor(private projectFileService: ProjectFileService){}
 
-    get projectFiles(): ProjectFile[] {
+    get projectFiles(): Iterable<ProjectFile> {
         return this.projectFileService.projectFiles;
     }
 
