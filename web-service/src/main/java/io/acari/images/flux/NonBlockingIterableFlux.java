@@ -1,5 +1,6 @@
 package io.acari.images.flux;
 
+import com.google.common.base.Preconditions;
 import io.acari.images.mono.MonoSinkHelper;
 import reactor.core.Disposable;
 import reactor.core.publisher.Flux;
@@ -24,9 +25,11 @@ public class NonBlockingIterableFlux<T> implements Disposable {
    * It is a hot observable that buffers when it has
    * backpressure.
    *
-   * @param source
+   * @param source non-null flux source.
+   * @throws NullPointerException when given null source
    */
   public NonBlockingIterableFlux(Flux<T> source) {
+    Preconditions.checkNotNull(source);
     Flux<T> messaged = Flux.create(stringFluxSink ->
         source.subscribe(sourceItem -> emitNextItem(stringFluxSink, sourceItem),
             this::accept,
