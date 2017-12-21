@@ -27,7 +27,7 @@ public class IterableFlux<T> {
           this::accept,
           this::run);
     });
-    messaged.subscribe();
+    messaged.subscribe();//Todo: thing to close.
 
   }
 

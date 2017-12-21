@@ -11,7 +11,6 @@ import org.bson.types.ObjectId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.buffer.DefaultDataBufferFactory;
 import org.springframework.http.codec.multipart.Part;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Flux;
@@ -38,14 +37,12 @@ public class ImageHandler {
     }
 
     public Flux<byte[]> fetchImage(String imageId) {
-        DefaultDataBufferFactory defaultDataBufferFactory = new DefaultDataBufferFactory();
         GridFSDownloadStream gridFSDownloadStream = gridFSBucket.openDownloadStream(new ObjectId(imageId));
-        return Flux.create(synchronousSink -> readStream(gridFSDownloadStream,
-                synchronousSink, defaultDataBufferFactory));
+        return Flux.create(synchronousSink -> readStream(gridFSDownloadStream, synchronousSink));
 
     }
 
-    private void readStream(GridFSDownloadStream gridFSDownloadStream, FluxSink<byte[]> synchronousSink, DefaultDataBufferFactory defaultDataBufferFactory) {
+    private void readStream(GridFSDownloadStream gridFSDownloadStream, FluxSink<byte[]> synchronousSink) {
         ByteBuffer allocate = ByteBuffer.allocate(4096);
         Mono.from(gridFSDownloadStream.read(allocate))
                 .subscribe(read -> {
@@ -55,10 +52,10 @@ public class ImageHandler {
                                 }, synchronousSink::complete);
                     } else {
                         synchronousSink.next(allocate.array());
-                        readStream(gridFSDownloadStream, synchronousSink, defaultDataBufferFactory);
+                        readStream(gridFSDownloadStream, synchronousSink);
                     }
                 }, throwable -> {
-                    LOGGER.warn("Ohhhshit", throwable);
+                    LOGGER.warn("Ohhh snap!", throwable);
                     synchronousSink.complete();
                 }, () -> {});
     }

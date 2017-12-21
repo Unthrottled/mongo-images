@@ -50,6 +50,7 @@ public class FluxAsyncInputStream implements AsyncInputStream {
    */
   @Override
   public Publisher<Success> close() {
+    //TODO: SHOULD REALLY CLOSE THE ITERABLE FLUX.
     return Mono.just(Success.SUCCESS);//The stream was never really open.
   }
 }
