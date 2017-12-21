@@ -18,11 +18,10 @@ public class IterableFlux<T> {
   private boolean complete = false;
 
   public IterableFlux(Flux<T> source) {
-    Flux<T> messaged = Flux.create(stringFluxSink -> {
-      source.subscribe(a -> emitNextItem(stringFluxSink, a),
-          this::accept,
-          this::run);
-    });
+    Flux<T> messaged = Flux.create(stringFluxSink ->
+        source.subscribe(sourceItem -> emitNextItem(stringFluxSink, sourceItem),
+        this::accept,
+        this::run));
     disposable = messaged.subscribe();
   }
 
@@ -35,13 +34,17 @@ public class IterableFlux<T> {
     if (complete && itemBuffer.isEmpty()) {
       return Mono.empty();
     } else if (itemBuffer.isEmpty()) {
-      final Consumer<MonoSink<T>> stringConsumer = tMonoSink -> {
-        callables.offer(new MonoSinkHelper<>(tMonoSink));
-      };
-      return Mono.create(stringConsumer);
+      return createCallback();
     } else {
       return Mono.just(itemBuffer.poll());
     }
+  }
+
+  private Mono<T> createCallback() {
+    final Consumer<MonoSink<T>> stringConsumer = tMonoSink -> {
+      callables.offer(new MonoSinkHelper<>(tMonoSink));
+    };
+    return Mono.create(stringConsumer);
   }
 
   private void emitNextItem(FluxSink<T> stringFluxSink, T a) {
@@ -58,17 +61,17 @@ public class IterableFlux<T> {
   }
 
   private void emitToNextSubscribedCaller(FluxSink<T> stringFluxSink, T a) {
-    MonoSinkHelper<T> poll = callables.poll();
-    if (poll.isDisposed()) {
+    MonoSinkHelper<T> nextPersonInLine = callables.poll();
+    if (nextPersonInLine.isDisposed()) {
       emitNextItem(stringFluxSink, a);
     } else {
-      poll.success(a);
+      nextPersonInLine.success(a);
     }
   }
 
 
   private void accept(Throwable b) {
-    callables.forEach(a -> a.error(b));
+    callables.forEach(callable -> callable.error(b));
   }
 
   private void run() {
