@@ -1,4 +1,4 @@
-package io.acari.images;
+package io.acari.images.configuration;
 
 import com.mongodb.ConnectionString;
 import com.mongodb.async.client.MongoClientSettings;

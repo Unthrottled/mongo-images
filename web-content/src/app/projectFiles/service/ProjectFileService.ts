@@ -55,6 +55,7 @@ export class ProjectFileService implements OnInit {
             this.remoteProjectFileService.removeProject(<RemoteProjectFile>projectFile)
                 .filter(b=>b)
                 .subscribe(result=>{
+                    //todo: dis borked when you do not delete the tail image.
                     self.removeLocal(projectFile);
                 }, error=>{
                     console.log(error)
