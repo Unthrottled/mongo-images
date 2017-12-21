@@ -11,7 +11,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.function.Consumer;
 
-public class NonBlockingIterableFlux<T> {
+public class NonBlockingIterableFlux<T> implements Disposable {
   private final Queue<T> itemBuffer = new LinkedList<>();
   private final Queue<MonoSinkHelper<T>> callables = new LinkedList<>();
   private final Disposable subscription;
