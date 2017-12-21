@@ -11,8 +11,6 @@ import org.bson.types.ObjectId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.buffer.DataBuffer;
-import org.springframework.core.io.buffer.DefaultDataBufferFactory;
 import org.springframework.http.codec.multipart.Part;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Flux;
@@ -26,7 +24,7 @@ import java.util.Objects;
 public class ImageHandler {
   private static final Logger LOGGER = LoggerFactory.getLogger(ImageHandler.class);
   private final GridFSBucket gridFSBucket;
-  private final DefaultDataBufferFactory defaultDataBufferFactory = new DefaultDataBufferFactory();
+
   @Autowired
   public ImageHandler(GridFSBucket gridFSBucket) {
     this.gridFSBucket = gridFSBucket;
@@ -38,7 +36,7 @@ public class ImageHandler {
             .map(ObjectId::toHexString));
   }
 
-  public Flux<DataBuffer> fetchImage(String imageId) {
+  public Flux<byte[]> fetchImage(String imageId) {
     GridFSDownloadStream gridFSDownloadStream = gridFSBucket.openDownloadStream(new ObjectId(imageId));
     return Flux.create(synchronousSink -> readStream(gridFSDownloadStream, synchronousSink));
 
@@ -60,7 +58,7 @@ public class ImageHandler {
 
   }
 
-  private void readStream(GridFSDownloadStream gridFSDownloadStream, FluxSink<DataBuffer> synchronousSink) {
+  private void readStream(GridFSDownloadStream gridFSDownloadStream, FluxSink<byte[]> synchronousSink) {
     ByteBuffer allocate = ByteBuffer.allocate(4096);
     Mono.from(gridFSDownloadStream.read(allocate))
         .subscribe(read -> {
@@ -68,7 +66,7 @@ public class ImageHandler {
             Mono.from(gridFSDownloadStream.close())
                 .subscribe(a -> {}, throwable -> {}, synchronousSink::complete);
           } else {
-            synchronousSink.next(defaultDataBufferFactory.wrap(allocate));
+            synchronousSink.next(allocate.array());
             readStream(gridFSDownloadStream, synchronousSink);
           }
         }, throwable -> {
