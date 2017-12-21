@@ -23,7 +23,8 @@ public class NonBlockingIterableFlux<T> implements Disposable {
    * sequential access to items in provided flux stream.
    * <p>
    * It is a hot observable that buffers when it has
-   * backpressure.
+   * backpressure. It guarantees that all items where delivered
+   * to somebody.
    *
    * @param source non-null flux source.
    * @throws NullPointerException when given null source
@@ -56,8 +57,8 @@ public class NonBlockingIterableFlux<T> implements Disposable {
    * Some people ahead of you may leave, that's okay,
    * because you will get their item.
    * <p>
-   * If you take a number that cannot be served before
-   * closing time (the flux runs out),
+   * If you take a number that cannot fufilled
+   * (the flux handed out all of it's items),
    * you will be notified by an empty return.
    *
    * @return An item in the flux based off of the current queue of callbacks.
