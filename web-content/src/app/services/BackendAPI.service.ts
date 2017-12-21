@@ -26,7 +26,7 @@ export class BackendAPIService {
     }
 
     deleteImage(_id: string): Observable<boolean> {
-        return this.httpClient.post('./api/image/delete/' + _id, {
+        return this.httpClient.delete('./api/image/delete/' + _id, {
             responseType: 'json'
         }).map(response => (<Boolean>response === true));
     }

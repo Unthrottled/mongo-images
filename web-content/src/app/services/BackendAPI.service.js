@@ -31,7 +31,7 @@ var BackendAPIService = /** @class */ (function () {
         });
     };
     BackendAPIService.prototype.deleteImage = function (_id) {
-        return this.httpClient.post('./api/image/delete/' + _id, {
+        return this.httpClient.delete('./api/image/delete/' + _id, {
             responseType: 'json'
         }).map(function (response) { return (response === true); });
     };
