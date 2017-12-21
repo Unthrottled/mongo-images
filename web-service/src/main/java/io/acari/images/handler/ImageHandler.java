@@ -2,7 +2,6 @@ package io.acari.images.handler;
 
 import com.mongodb.client.gridfs.model.GridFSFile;
 import com.mongodb.reactivestreams.client.gridfs.GridFSBucket;
-import com.mongodb.reactivestreams.client.gridfs.GridFSDownloadStream;
 import io.acari.images.flux.DownloadStreamToFluxFactory;
 import io.acari.images.flux.FluxAsyncStreamConverter;
 import io.acari.images.model.Identifier;

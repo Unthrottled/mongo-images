@@ -9,7 +9,7 @@ public class MonoSinkHelper<T>{
 
   public MonoSinkHelper(MonoSink<T> monoSink) {
     this.monoSink = monoSink;
-    monoSink.onDispose(this::dispose);
+    monoSink.onDispose(this::disposed);
   }
 
   public void success(){
@@ -24,11 +24,11 @@ public class MonoSinkHelper<T>{
     this.monoSink.error(t);
   }
 
-  private void dispose() {
-    disposed = true;
-  }
-
   public boolean isDisposed() {
     return disposed;
+  }
+
+  private void disposed() {
+    disposed = true;
   }
 }
