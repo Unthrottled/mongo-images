@@ -22,7 +22,6 @@ public class FluxAsyncInputStream implements AsyncInputStream {
   private final IterableFlux<DataBuffer> source;
 
   public FluxAsyncInputStream(Flux<DataBuffer> source) {
-    //sure would be nice if I had the producer :\
     this.source = new IterableFlux<>(source);
 
   }
@@ -51,6 +50,6 @@ public class FluxAsyncInputStream implements AsyncInputStream {
   @Override
   public Publisher<Success> close() {
     this.source.dispose();
-    return Mono.just(Success.SUCCESS);//The stream was never really open.
+    return Mono.just(Success.SUCCESS);
   }
 }

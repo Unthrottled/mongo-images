@@ -1,5 +1,6 @@
 package io.acari.images.rest;
 
+import io.acari.images.handler.ImageHandler;
 import io.acari.images.model.Identifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
