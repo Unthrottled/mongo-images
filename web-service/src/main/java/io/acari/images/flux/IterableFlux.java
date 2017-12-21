@@ -1,5 +1,6 @@
 package io.acari.images.flux;
 
+import reactor.core.Disposable;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.core.publisher.MonoSink;
@@ -12,6 +13,7 @@ public class IterableFlux<T> {
   private final Queue<T> bufferedList = new LinkedList<>();
   private final Queue<MonoSink<T>> callables = new LinkedList<>();
   private boolean complete = false;
+  private final Disposable disposable;
 
   public IterableFlux(Flux<T> source) {
     Flux<T> messaged = Flux.create(stringFluxSink -> {
@@ -27,8 +29,7 @@ public class IterableFlux<T> {
           this::accept,
           this::run);
     });
-    messaged.subscribe();//Todo: thing to close.
-
+    disposable = messaged.subscribe();
   }
 
 
@@ -51,4 +52,10 @@ public class IterableFlux<T> {
     callables.forEach(MonoSink::success);
     complete = true;
   }
+
+  public void dispose(){
+    disposable.dispose();
+    callables.forEach(MonoSink::success);
+  }
+
 }
