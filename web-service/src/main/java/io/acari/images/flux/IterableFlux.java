@@ -1,4 +1,4 @@
-package io.acari.images;
+package io.acari.images.flux;
 
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;

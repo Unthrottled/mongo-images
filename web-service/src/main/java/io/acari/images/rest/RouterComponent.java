@@ -1,5 +1,6 @@
-package io.acari.images;
+package io.acari.images.rest;
 
+import io.acari.images.model.Identifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

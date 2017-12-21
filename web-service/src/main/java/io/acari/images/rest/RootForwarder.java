@@ -1,4 +1,4 @@
-package io.acari.images;
+package io.acari.images.rest;
 
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.stereotype.Component;

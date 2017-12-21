@@ -1,4 +1,4 @@
-package io.acari.images;
+package io.acari.images.configuration;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.reactive.config.EnableWebFlux;

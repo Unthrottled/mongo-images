@@ -1,4 +1,4 @@
-package io.acari.images;
+package io.acari.images.flux;
 
 import com.mongodb.reactivestreams.client.Success;
 import com.mongodb.reactivestreams.client.gridfs.AsyncInputStream;

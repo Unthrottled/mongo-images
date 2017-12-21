@@ -1,4 +1,4 @@
-package io.acari.images;
+package io.acari.images.model;
 
 public class Identifier {
 
