@@ -12,6 +12,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.function.Consumer;
 
+//TODO: Would like this to be lazely evaluated
 public class NonBlockingIterableFlux<T> implements Disposable {
   private final Queue<T> itemBuffer = new LinkedList<>();
   private final Queue<MonoSinkHelper<T>> callables = new LinkedList<>();
