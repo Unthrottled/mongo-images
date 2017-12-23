@@ -12,6 +12,7 @@ import java.nio.ByteBuffer;
 
 public class DownloadStreamToFluxFactory {
   private static final Logger LOGGER = LoggerFactory.getLogger(ImageHandler.class);
+
   public Flux<byte[]> convert(GridFSDownloadStream gridFSDownloadStream) {
     return Flux.create(synchronousSink -> readStream(gridFSDownloadStream, synchronousSink));
   }
