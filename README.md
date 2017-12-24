@@ -101,14 +101,13 @@ Image binary is streamed chunked to the frontend, to avoid needing to keep the e
 Form data sent to the server via the REST API is recieved as a `Flux<Part>`
 
 
-
 ## Web-content
 
 This directory holds all of the fun bits to serve end-user rendered html.
-This can be bundled with the web-service, but is broken out in-case I want to take advantage of content servers such as Apache or nginx.
-Web-content has code in it because, I know Angular 5 the best at the moment. 
-Most of the work on all of these projects in front-end work. So I am currently sticking to what I know at the moment.
-  
+It enables you to pick, view, upload, and delete images!
+GIFs, JPEGS, PNG, WebP, all work. However, SVGs and ICOs do not display.
+
+![Screenshot](readMeImages/screenshot.png)
 
 ### Webpack 3
 
