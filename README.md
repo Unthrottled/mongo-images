@@ -83,7 +83,7 @@ Fun fact, if you make any changes to typscript files, you will have to recompile
 
 You could create a script that has this as the command:
 
-`docker run --rm -v /home/alex/workspace/acari-landing/web-content:/app alexsimons/nodebuild run compile` 
+`docker run --rm -v /home/alex/workspace/acari-landing/mong-images:/app alexsimons/nodebuild run compile` 
 
 You will probably want to replace  /home/alex/workspace with whatever you put the repository. 
 
