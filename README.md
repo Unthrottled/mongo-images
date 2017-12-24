@@ -33,9 +33,14 @@ This all sounds straight forward, right? As it turns out, there is very little d
 
 ## Web-Service
 
-This directory is a place holder for the Server-Side code. 
-There is nothing in here @ the moment, because I may change what I want to use as my middle-ware from time to time.
+This directory contains a Webflux Spring Boot server. 
+Which is configured to serve static web content, which was generated from the `web-content` directory.
 
+The Mongo client and GridFS are from the reactive streams library.
+
+Image binary is streamed chunked to the frontend, to avoid needing to keep the entire image in memory.
+
+Form data sent to the server via the REST API is recieved as a `Flux<Part>`
 
 ## Web-content
 
