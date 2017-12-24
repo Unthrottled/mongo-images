@@ -31,6 +31,29 @@ The server takes advantage of GridFS which breaks the image binary into chunks w
 This all sounds straight forward, right? As it turns out, there is very little documentation and examples on how to do anything reactive!
 ### [Look no further said documentation!](http://blog.acari.io/2017/12/14/Reactive-Mongo-Image-Persistence.html)
 
+### Local Deployment (For the ambitious)
+
+To run this project locally you will need the following goodies:
+
+ - [Docker 17.09.0](https://www.docker.com/) 
+ - [Docker-Compose 1.12.0](https://docs.docker.com/compose/install/)
+ 
+All you have to do is at the root of this repository run:
+    `docker-compose up -d`
+
+Boom! You are done.
+
+What this does is starts a Mongo server.
+In addition to mounting the data location to dataDump in the root of this repository.
+So that when the Mongo server container gets removed, all of the data is saved.
+
+In addition to the mongo server, it also spins up the Spring boot server, and binds the container port to the host port 80.
+So that mean you can open 
+    
+    http://localhost/
+    
+An get the index.html!
+
 ## Web-Service
 
 This directory contains a Webflux Spring Boot server. 
@@ -41,6 +64,8 @@ The Mongo client and GridFS are from the reactive streams library.
 Image binary is streamed chunked to the frontend, to avoid needing to keep the entire image in memory.
 
 Form data sent to the server via the REST API is recieved as a `Flux<Part>`
+
+
 
 ## Web-content
 
