@@ -2,9 +2,34 @@
 
 ---
 
-This project is, like the title states, a template for creating applications for the Acari web-suite.
+Have you bought into the whole [Reactive Programming](https://en.wikipedia.org/wiki/Reactive_programming) bit yet? 
+Well, I have participated in consuming the "_Reactive Flavor Aid_" and there is one issue at the moment.
+Currently, there is a supreme lack of helpful documentation to assist in a seamless development experience.
+Fear not fellow reactive enthusiast, this post should help you save images in MongoDB utilizing reactive streams!
 
-It comes pre-baked with the following goodies
+Recently, I wanted to create a project that is a full slice reactive application.
+Meaning that the code and communication between the Frontend, Backend, and Data Persistence Layers are _reactive_.
+When reactive is stated, the following can be assumed:
+
+- All code is no blocking
+- Code is processed in an [event loop](http://vertx.io/docs/guide-for-java-devs/#_core_vert_x_concepts).
+- [Push based programming](https://en.wikipedia.org/wiki/Push_technology).
+- Publisher/Subscriber or [Observable/Observer](http://reactivex.io/intro.html) pattern. 
+
+With all of this criterion set, here is the following application stack that I came up with:
+
+- [Angular 5](https://angular.io/) paired with [RxJS](http://reactivex.io/rxjs/)
+- [Spring 5](https://spring.io/) paired with WebFlux powered by [Reactor](https://projectreactor.io/)
+- [MongoDB](https://www.mongodb.com/) which supports reactive streams!
+
+At a high level, the project consists of a Spring Boot server.
+Which serves static content to the user, and provides a REST API to save, update, retrieve, and delete persisted images.
+
+The images are stored in a Mongo database. 
+The server takes advantage of GridFS which breaks the image binary into chunks which allows for storage of images greater than 16MB. 
+
+This all sounds straight forward, right? As it turns out, there is very little documentation and examples on how to do anything reactive!
+### [Look no further said documentation!](http://blog.acari.io/2017/12/14/Reactive-Mongo-Image-Persistence.html)
 
 ## Web-Service
 
