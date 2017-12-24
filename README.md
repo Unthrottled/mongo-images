@@ -87,6 +87,7 @@ You could create a script that has this as the command:
 
 You will probably want to replace  /home/alex/workspace with whatever you put the repository. 
 
+(Maybe I should create a compose file that does that....)
 
 ## Web-Service
 
