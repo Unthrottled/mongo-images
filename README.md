@@ -1,4 +1,4 @@
-# Acari Template Project
+# Reactive NoSql Image Persistence 
 
 ---
 
