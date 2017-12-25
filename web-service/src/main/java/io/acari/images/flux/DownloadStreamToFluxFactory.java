@@ -14,7 +14,7 @@ public class DownloadStreamToFluxFactory {
   private static final Logger LOGGER = LoggerFactory.getLogger(ImageHandler.class);
 
   public Flux<byte[]> convert(GridFSDownloadStream gridFSDownloadStream) {
-    return Flux.create(synchronousSink -> readStream(gridFSDownloadStream, synchronousSink));
+    return Flux.create(synchronousSink -> readStream(gridFSDownloadStream, synchronousSink), FluxSink.OverflowStrategy.BUFFER);
   }
 
   private void readStream(GridFSDownloadStream gridFSDownloadStream, FluxSink<byte[]> synchronousSink) {
