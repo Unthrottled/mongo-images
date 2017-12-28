@@ -9,9 +9,6 @@ var htmlLoader = require('raw-loader');
 var http = require('http');
 var keepAliveAgent = new http.Agent({keepAlive: true});
 const ProvidePlugin = require('webpack/lib/ProvidePlugin');
-const extractSass = new ExtractTextPlugin({
-    filename: "[name].[contenthash].css"
-});
 
 
 var proxyPeel = proxy('/api', {
@@ -24,6 +21,7 @@ var proxyPeel = proxy('/api', {
 
 module.exports = {
     entry: {
+        'stylez': './src/app/css/sassy.sass',
         'app': './src/main.ts',
         'vendor': './src/vendor.ts',
         'polyfills': './src/polyfills.ts'
@@ -66,7 +64,7 @@ module.exports = {
                 loader: "raw-loader"
             },
             {
-                test: /\.(png|jpe?g|gif|svg|woff|woff2|ttf|eot|ico)$/,
+                test: /\.(png|jpe?g|gif|svg|woff|woff2|otf|ttf|eot|ico)$/,
                 loader: 'file-loader?name=[name].[hash].[ext]',
                 exclude: [/node_modules/, /build/, /dist/, /gradle/]
             },
@@ -81,7 +79,7 @@ module.exports = {
             {
                 test: /\.s[ac]ss$/,
                 exclude: [/build/, /dist/, /gradle/],
-                use: extractSass.extract({
+                use: ExtractTextPlugin.extract({
                     use: [{
                         loader: "css-loader"
                     }, {
@@ -143,7 +141,8 @@ module.exports = {
             exclude: ['shared.js']
         }),
         new ExtractTextPlugin({
-            filename: 'styles.[contenthash].css'
+            filename: 'style.[contenthash].css',
+            allChunks: true
         }),
         new BrowserSyncPlugin({
             // browse to http://localhost:3000/ during development,
