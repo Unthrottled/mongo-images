@@ -4,14 +4,14 @@ services:
     build:
       dockerfile: Dockerfile-dev
       context: ./web-content
-    image: alexsimons/mongo-images-web-content:1.0.0
+    image: alexsimons/mongo-images-web-content:1.0.3
     ports:
       - "3000:3000"
     volumes:
       - ./web-content:/app
   web-service:
     build: ./web-service
-    image: alexsimons/mongo-images-web-service:1.0.0
+    image: alexsimons/mongo-images-web-service:1.0.3
     ports:
       - "80:80"
   mongo:
