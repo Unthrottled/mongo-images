@@ -10,7 +10,6 @@
     "postbuild": "npm run deploy",
     "predeploy": "rm -rf ../web-service/src/main/resources/static",
     "deploy": "cp -R dist ../web-service/src/main/resources/static",
-    "serve": "lite-server -c=bs-config.json",
     "prestart": "npm run compile && npm run build",
     "start": "npm run compile && webpack --display-error-details --watch",
     "watch": "npm run compile && webpack --display-error-details --watch",
@@ -21,7 +20,6 @@
     "build:upgrade": "tsc",
     "serve:upgrade": "http-server",
     "build:aot": "ngc -p tsconfig-aot.json && rollup -c rollup-config.js",
-    "serve:aot": "lite-server -c bs-config.aot.json",
     "build:babel": "babel src -d src --extensions \".es6\" --source-maps",
     "copy-dist-files": "node ./copy-dist-files.js",
     "i18n": "ng-xi18n",
@@ -85,7 +83,6 @@
     "karma-jasmine": "^1.0.2",
     "karma-jasmine-html-reporter": "^0.2.2",
     "karma-phantomjs-launcher": "^1.0.2",
-    "lite-server": "^2.2.2",
     "lodash": "^4.16.2",
     "phantomjs-prebuilt": "^2.1.7",
     "protractor": "~4.0.14",
@@ -111,7 +108,8 @@
     "imports-loader": "^0.7.1",
     "exports-loader": "^0.6.4",
     "raw-loader": "^0.5.1",
-    "bootstrap-loader": "^2.2.0"
+    "bootstrap-loader": "^2.2.0",
+    "browser-sync": "2.23.6 "
   },
   "repository": {}
 }
