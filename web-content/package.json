@@ -77,7 +77,6 @@
     "karma-jasmine": "^1.0.2",
     "karma-jasmine-html-reporter": "^0.2.2",
     "karma-phantomjs-launcher": "^1.0.2",
-    "lite-server": "^2.2.2",
     "lodash": "^4.16.2",
     "phantomjs-prebuilt": "^2.1.7",
     "protractor": "~4.0.14",
@@ -103,7 +102,8 @@
     "imports-loader": "^0.7.1",
     "exports-loader": "^0.6.4",
     "raw-loader": "^0.5.1",
-    "bootstrap-loader": "^2.2.0"
+    "bootstrap-loader": "^2.2.0",
+    "browser-sync": "2.23.6 "
   },
   "repository": {}
 }
