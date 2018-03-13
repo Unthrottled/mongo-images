@@ -1,8 +1,8 @@
 {
-  "name": "PLACEHOLDER",
+  "name": "ReactiveMongoPersistance",
   "version": "1.0.3",
   "private": true,
-  "description": "Something discriptive",
+  "description": "An example of how to reactively store and fetch images.",
   "scripts": {
     "test:once": "karma start karma.conf.js --single-run",
     "compile": "tsc -p src/",
